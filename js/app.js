@@ -196,10 +196,11 @@ DOM.addBtn.addEventListener('click', () => {
   const referenceFrom = getValue('#reference-from');
   const referenceTo = getValue('#reference-to');
   const result = getValue('#result');
-  if (currTest >= 0 && DOM.elementPicker.value && referenceFrom && referenceTo && result) {
+  const elementPickerValue = DOM.elementPicker.value;
+  if (currTest >= 0 && DOM.elementPicker.value && referenceFrom && referenceTo && result && elementPickerValue) {
     const fullElementName = DOM.elementPicker.options[DOM.elementPicker.selectedIndex].text;
     const bloodElementID = IDgenerator(userBloodTests[currTest].elements);
-    const newElement = {id: bloodElementID, name: fullElementName, res: result, refFrom: referenceFrom, refTo: referenceTo};
+    const newElement = {id: bloodElementID, name: fullElementName, res: result, refFrom: referenceFrom, refTo: referenceTo, elPickerVal: elementPickerValue};
     userBloodTests[currTest].elements.push(newElement);
     addElementToUI(newElement);
     clearResults();
@@ -216,10 +217,9 @@ const userResultCheck = (res, refFrom, refTo) => {
   }
 };
 
-const addElementToUI = ({id, name, res, refFrom, refTo}) => {
-  const elementPickerValue = DOM.elementPicker.value;
+const addElementToUI = ({id, name, res, refFrom, refTo, elPickerVal}) => {
   const userCheck = userResultCheck(res, refFrom, refTo);
-  const newElementHTML = `<div class="blood-element" id="blood-element-${id}"><div class="blood-element__element-name"><span>${name}</span><div class="query-box"><span>?</span><div class="details-popup">${bloodElements[elementPickerValue].description}</div></div></div><div class="blood-element__result ${userCheck === 'checkmark' ? 'user-pass' : 'user-fail'}"><span>${res}</span><svg class="icon-medium margin-left-small"><use xlink:href="img/sprites.svg#icon-${userCheck}"></use></svg></div><div class="blood-element__unit"><span>${bloodElements[elementPickerValue].unit}</span></div><div class="blood-element__reference"><span>${refFrom} - ${refTo}</span><div class="blood-element__delete-icon"><a id="btn-delete" title="Usuń składnik"><svg class="icon-medium delete-icon"><use xlink:href="img/sprites.svg#icon-close"></use></svg></a></div></div></div>`;
+  const newElementHTML = `<div class="blood-element" id="blood-element-${id}"><div class="blood-element__element-name"><span>${name}</span><div class="query-box"><span>?</span><div class="details-popup">${bloodElements[elPickerVal].description}</div></div></div><div class="blood-element__result ${userCheck === 'checkmark' ? 'user-pass' : 'user-fail'}"><span>${res}</span><svg class="icon-medium margin-left-small"><use xlink:href="img/sprites.svg#icon-${userCheck}"></use></svg></div><div class="blood-element__unit"><span>${bloodElements[elPickerVal].unit}</span></div><div class="blood-element__reference"><span>${refFrom} - ${refTo}</span><div class="blood-element__delete-icon"><a id="btn-delete" title="Usuń składnik"><svg class="icon-medium delete-icon"><use xlink:href="img/sprites.svg#icon-close"></use></svg></a></div></div></div>`;
   DOM.elementsList.forEach(el => {
     el.insertAdjacentHTML('beforeend', newElementHTML);
   });
@@ -317,10 +317,6 @@ const openTest = (e, id) => {
     userBloodTests[id].elements.forEach(el => addElementToUI(el));
   }
 }
-
-document.addEventListener('click', (e) => {
-  console.log(e.target);
-})
 
 // const downloadTest = (id) => {
 //     const el = document.querySelector(`#user-test-${id} #btn-download-test`);
