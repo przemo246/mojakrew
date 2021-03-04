@@ -272,7 +272,7 @@ const updateTestsList = ({id, date, location}) => {
  } else {
   DOM.noTestsBox.style.display = 'none';
     const [year, month, day] = date.split('-');
-    const newTestHTML = `<div class="user-tests__item" id="user-test-${id}"><span class="red-label">${id + 1}.</span><span>Badanie z dnia ${day}-${month}-${year}, w ${location}</span><a class="margin-left-small" id="btn-options" title="Pokaż opcje"><svg class="icon-medium icon-grey"><use xlink:href="img/sprites2.svg#icon-menu"></use></svg></a><div class="user-tests__options"><a id="btn-open-test" class="margin-right-medium" title="Otwórz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites.svg#icon-launch"></use></svg></a><a id="btn-download-test" class="margin-right-medium" title="Pobierz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-save_alt"></use></svg></a><a id="btn-delete-test" class="margin-right-medium" title="Usuń badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-trash-2"></use></svg></a><a id="btn-return" title="Powrót"><svg class="icon-big icon-grey"><use xlink:href="img/sprites2.svg#icon-corner-down-left"></use></svg></a></div></div>`;
+    const newTestHTML = `<div class="user-tests__item" id="user-test-${id}"><span class="red-label">${id + 1}.</span><span>Badanie z dnia ${day}-${month}-${year}, w ${location}</span><button class="btn-round btn-round--small margin-left-small" id="btn-options" title="Pokaż opcje"><svg class="icon-medium icon-grey margin-top-small"><use xlink:href="img/sprites2.svg#icon-menu"></use></svg></button><div class="user-tests__options"><button id="btn-open-test" class="btn-round btn-round--big margin-right-medium" title="Otwórz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites.svg#icon-launch"></use></svg></button><button id="btn-download-test" class="btn-round btn-round--big margin-right-medium" title="Pobierz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-save_alt"></use></svg></button><button id="btn-delete-test" class="btn-round btn-round--big margin-right-medium" title="Usuń badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-trash-2"></use></svg></button><button id="btn-return" class="btn-round btn-round--big" title="Powrót"><svg class="icon-big icon-grey"><use xlink:href="img/sprites2.svg#icon-corner-down-left"></use></svg></button></div></div>`;
     DOM.userTests.insertAdjacentHTML('beforeend', newTestHTML);
  }
 }
@@ -317,6 +317,10 @@ const openTest = (e, id) => {
     userBloodTests[id].elements.forEach(el => addElementToUI(el));
   }
 }
+
+document.addEventListener('click', (e) => {
+  console.log(e.target);
+})
 
 // const downloadTest = (id) => {
 //     const el = document.querySelector(`#user-test-${id} #btn-download-test`);
