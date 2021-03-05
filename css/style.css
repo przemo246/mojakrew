@@ -103,6 +103,7 @@ section {
   width: 50%;
   margin: 0 auto;
   opacity: 0;
+  display: none;
   transition: opacity 0.5s ease-in-out; }
   .message-box__text {
     font-size: 1.4rem;
@@ -217,7 +218,7 @@ button {
     color: var(--color-secondary-dark); }
 
 .logo {
-  width: 75%; }
+  width: 23rem; }
 
 /**************************************/
 /**************************************/

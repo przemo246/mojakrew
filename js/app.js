@@ -8,6 +8,27 @@ const overlayDisplayToggler = () => {
   overlay.classList.toggle('overlay-active');
 }
 
+const deleteElementFromUI = (IDName, idNum) => {
+  const el = document.getElementById(`${IDName}${idNum}`);
+  el.parentNode.removeChild(el);
+};
+
+const clearElementsListfromUI = () => {
+  DOM.elementsList.forEach(el => {
+    el.innerHTML = '';
+  });
+}
+
+const getIDNumber = (str) => {
+  const IDnameArr = str.split('-');
+  const idNum = parseInt(IDnameArr[2]);
+  return idNum;
+};
+
+const deleteFromDataStructure = (arr, index) => {
+  arr.splice(index, 1);
+};
+
 const nav = qSelectAll('.nav__link');
 const close = qSelectAll('.close');
 const popups = qSelectAll('.popup');
@@ -93,13 +114,15 @@ const failOrSuccessPopup = (res) => {
     popupSpan.textContent = "Błąd! Uzupełnij wszystkie pola i spróbuj ponownie.";
   }
   box.style.opacity = 1;
-  setTimeout(() => { box.style.opacity = 0 }, 4500);
-}
+  box.style.display = 'block';
+  setTimeout(() => { box.style.opacity = 0; box.style.display = 'none' }, 4500);
+};
 
 DOM.okBtn.addEventListener('click', () => {
   const dateField = DOM.datePicker.value;
   const locationField = DOM.testLocation.value;
   if (dateField && locationField) {
+    clearElementsListfromUI();
     const testID = IDgenerator(userBloodTests);
     currTest = testID;
     const newBloodTest = new bloodTest(testID, dateField, locationField);
@@ -225,31 +248,10 @@ const addElementToUI = ({ id, name, res, refFrom, refTo, elPickerVal }) => {
   });
 };
 
-const deleteElementFromUI = (IDName, idNum) => {
-  const el = document.getElementById(`${IDName}${idNum}`);
-  el.parentNode.removeChild(el);
-};
-
-const removeElementsFromUI = (i) => {
-  const elements = qSelectAll(`#blood-element-${i}`);
-  elements.forEach(el => el.parentNode.removeChild(el));
-};
-
-const clearElementsListfromUI = () => {
-  DOM.elementsList.forEach(el => {
-    el.innerHTML = '';
-  });
-}
-
-const getIDNumber = (str) => {
-  const IDnameArr = str.split('-');
-  const idNum = parseInt(IDnameArr[2]);
-  return idNum;
-};
-
-const deleteFromDataStructure = (arr, index) => {
-  arr.splice(index, 1);
-};
+// const removeElementsFromUI = (i) => {
+//   const elements = qSelectAll(`#blood-element-${i}`);
+//   elements.forEach(el => el.parentNode.removeChild(el));
+// };
 
 const deleteElement = (event) => {
   if (event.target.parentNode.classList.contains('delete-icon')) {
@@ -264,7 +266,7 @@ const deleteElement = (event) => {
       }
     }
   }
-}
+};
 
 DOM.elementsList.forEach(el => {
   el.addEventListener('click', deleteElement);
