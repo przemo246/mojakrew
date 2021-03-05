@@ -318,19 +318,21 @@ const openTest = (e, id) => {
   }
 }
 
-// const downloadTest = (id) => {
-//     const el = document.querySelector(`#user-test-${id} #btn-download-test`);
-//     el.addEventListener('click', () => {
-//       console.log('Button download');
-//     });
-// }
+const downloadTest = (e, id) => {
+  if (e.target.parentNode.id === 'btn-download-test' || 
+  e.target.id === 'btn-download-test' || 
+  e.target.parentNode.parentNode.id === 'btn-download-test') {
+    console.log(`Works`);
+  }
+};
 
-// const deleteTest = (id) => {
-//     const el = document.querySelector(`#user-test-${id} #btn-delete-test`);
-//     el.addEventListener('click', () => {
-//       console.log('Button delete');
-//     });
-// }
+const deleteTest = (e, id) => {
+  if (e.target.parentNode.id === 'btn-delete-test' || 
+  e.target.id === 'btn-delete-test' || 
+  e.target.parentNode.parentNode.id === 'btn-delete-test') {
+    console.log(`Works`);
+  }
+};
 
 DOM.userTests.addEventListener('click', (event) => {
   if (userBloodTests.length > 0) {
@@ -338,7 +340,8 @@ DOM.userTests.addEventListener('click', (event) => {
     const testID = getIDNumber(testIDnameStr);
     userTestOptionsDisplayToggle(event, testID);
     openTest(event, testID);
-    //userTestOptions(event, testID);
+    downloadTest(event, testID);
+    deleteTest(event, testID);
   }
 });
 
