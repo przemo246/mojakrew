@@ -247,6 +247,10 @@ const getIDNumber = (str) => {
   return id;
 };
 
+const removeFromDataStructure = (arr, index) => {
+  arr.splice(index, 1);
+};
+
 const deleteElement = (event) => {
   if (event.target.parentNode.classList.contains('delete-icon')) {
     const ElIDnameStr = event.target.closest('.blood-element').id;
@@ -254,8 +258,8 @@ const deleteElement = (event) => {
       const id = getIDNumber(ElIDnameStr);
       const index = userBloodTests[currTest].elements.findIndex(obj => obj.id === id);
       if (index !== -1) {
-        userBloodTests[currTest].elements.splice(index, 1);
-        removeElementFromUI('blood-element-', index);
+        removeFromDataStructure(userBloodTests[currTest].elements, index);
+        removeElementFromUI('blood-element-', id);
         // removeElementsFromUI(index);
       }
     }
@@ -330,7 +334,11 @@ const deleteTest = (e, id) => {
   if (e.target.parentNode.id === 'btn-delete-test' || 
   e.target.id === 'btn-delete-test' || 
   e.target.parentNode.parentNode.id === 'btn-delete-test') {
-    console.log(`Works`);
+    const index = userBloodTests.findIndex(obj => obj.id === id);
+    if (index !== -1) {
+      removeFromDataStructure(userBloodTests, index);
+      removeElementFromUI('user-test-', id);
+    }
   }
 };
 
