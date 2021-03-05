@@ -30,7 +30,7 @@ const closePopup = () => {
 close.forEach(el => {
   el.addEventListener('click', () => {
     closePopup();
-  })  
+  })
 });
 
 
@@ -39,8 +39,8 @@ document.addEventListener('click', (event) => {
 });
 
 document.addEventListener('keydown', (event) => {
-  if(overlay.className.includes('active')) {
-    if(event.key === 'Escape') closePopup();
+  if (overlay.className.includes('active')) {
+    if (event.key === 'Escape') closePopup();
   }
 });
 
@@ -93,7 +93,7 @@ const failOrSuccessPopup = (res) => {
     popupSpan.textContent = "Błąd! Uzupełnij wszystkie pola i spróbuj ponownie.";
   }
   box.style.opacity = 1;
-  setTimeout(() => { box.style.opacity = 0},4500);
+  setTimeout(() => { box.style.opacity = 0 }, 4500);
 }
 
 DOM.okBtn.addEventListener('click', () => {
@@ -128,7 +128,7 @@ const bloodElements = {
     description: 'Stosunek objętości erytrocytów do objętości pełnej krwi.',
     unit: '%'
   },
-  mcv: { 
+  mcv: {
     description: '(z ang. Mean Corpuscular Volume) - Średnia objętość krwinki czerwonej. Znajdująca się w nich hemoglobina odpowiedzialna jest za transport tlenu do komórek, natomiast odpowiednia ilość tlenu potrzebna jest do poprawnego funkcjonowania naszego organizmu. Zatem parametr MCV wyraża ilość zawartego w organizmie badanego hematokrytu oraz ilość krwinek czerwonych.',
     unit: 'fl'
   },
@@ -136,7 +136,7 @@ const bloodElements = {
     description: '(z ang. Mean Corpuscular Hemoglobin) to średnia waga hemoglobiny w czerwonej krwince. Średnia ta otrzymywana jest z podzielenia stężenia hemoglobiny przez liczbę erytrocytów.',
     unit: 'pg'
   },
-  mchc: { 
+  mchc: {
     description: 'Jest jednym z parametrów oznaczanych podczas morfologii krwi. Jest to wskaźnik określający średnie stężenie hemoglobiny w erytrocytach, czyli czerwonych krwinkach. Poziom MCHC mówi wiele o zdrowiu człowieka. Podwyższone poziom tego wskaźnika może świadczyć o odwodnieniu, a obniżony o anemii.',
     unit: 'g/dl'
   },
@@ -152,7 +152,7 @@ const bloodElements = {
     description: '(z ang. Mean Platelet Volume) jest jednym z wielu współczynników morfologii krwi. Badanie to daje nam wiedzę o wielkości wytwarzanych przez szpik kostny trombocytów, czyli płytek krwi. Pozwala rozpoznać nadpłytkowość lub małopłytkowość.',
     unit: 'fl'
   },
-  neutrocyty: { 
+  neutrocyty: {
     description: 'Neutrocyty nazywane są inaczej neutrofilami. To obojętnochłonne granulocyty, które przypominaja niewielkie kulki o średnicy nieprzekraczającej 13 mikrometrów. Stanowią jedną z najważniejszych części naszego układu odpornościowego. Potrafią w ciągu ułamków sekund reagować na obecność szkodliwych substancji.',
     unit: 'G/l'
   },
@@ -188,7 +188,7 @@ const clearResults = () => {
 
 const IDgenerator = (arr) => {
   let id;
-  arr.length < 1 ? id = 0: id = arr[arr.length - 1].id + 1;
+  arr.length < 1 ? id = 0 : id = arr[arr.length - 1].id + 1;
   return id;
 }
 
@@ -200,7 +200,7 @@ DOM.addBtn.addEventListener('click', () => {
   if (currTest >= 0 && DOM.elementPicker.value && referenceFrom && referenceTo && result && elementPickerValue) {
     const fullElementName = DOM.elementPicker.options[DOM.elementPicker.selectedIndex].text;
     const bloodElementID = IDgenerator(userBloodTests[currTest].elements);
-    const newElement = {id: bloodElementID, name: fullElementName, res: result, refFrom: referenceFrom, refTo: referenceTo, elPickerVal: elementPickerValue};
+    const newElement = { id: bloodElementID, name: fullElementName, res: result, refFrom: referenceFrom, refTo: referenceTo, elPickerVal: elementPickerValue };
     userBloodTests[currTest].elements.push(newElement);
     addElementToUI(newElement);
     clearResults();
@@ -217,7 +217,7 @@ const userResultCheck = (res, refFrom, refTo) => {
   }
 };
 
-const addElementToUI = ({id, name, res, refFrom, refTo, elPickerVal}) => {
+const addElementToUI = ({ id, name, res, refFrom, refTo, elPickerVal }) => {
   const userCheck = userResultCheck(res, refFrom, refTo);
   const newElementHTML = `<div class="blood-element" id="blood-element-${id}"><div class="blood-element__element-name"><span>${name}</span><div class="query-box"><span>?</span><div class="details-popup">${bloodElements[elPickerVal].description}</div></div></div><div class="blood-element__result ${userCheck === 'checkmark' ? 'user-pass' : 'user-fail'}"><span>${res}</span><svg class="icon-medium margin-left-small"><use xlink:href="img/sprites.svg#icon-${userCheck}"></use></svg></div><div class="blood-element__unit"><span>${bloodElements[elPickerVal].unit}</span></div><div class="blood-element__reference"><span>${refFrom} - ${refTo}</span><div class="blood-element__delete-icon"><a id="btn-delete" title="Usuń składnik"><svg class="icon-medium delete-icon"><use xlink:href="img/sprites.svg#icon-close"></use></svg></a></div></div></div>`;
   DOM.elementsList.forEach(el => {
@@ -225,17 +225,17 @@ const addElementToUI = ({id, name, res, refFrom, refTo, elPickerVal}) => {
   });
 };
 
-const removeElementFromUI = (IDName, i) => {
-  const el = document.getElementById(`${IDName}${i}`);
+const deleteElementFromUI = (IDName, idNum) => {
+  const el = document.getElementById(`${IDName}${idNum}`);
   el.parentNode.removeChild(el);
-}
+};
 
 const removeElementsFromUI = (i) => {
   const elements = qSelectAll(`#blood-element-${i}`);
   elements.forEach(el => el.parentNode.removeChild(el));
 };
 
-const clearUI = () => {
+const clearElementsListfromUI = () => {
   DOM.elementsList.forEach(el => {
     el.innerHTML = '';
   });
@@ -243,23 +243,23 @@ const clearUI = () => {
 
 const getIDNumber = (str) => {
   const IDnameArr = str.split('-');
-  const id = parseInt(IDnameArr[2]);
-  return id;
+  const idNum = parseInt(IDnameArr[2]);
+  return idNum;
 };
 
-const removeFromDataStructure = (arr, index) => {
+const deleteFromDataStructure = (arr, index) => {
   arr.splice(index, 1);
 };
 
 const deleteElement = (event) => {
   if (event.target.parentNode.classList.contains('delete-icon')) {
     const ElIDnameStr = event.target.closest('.blood-element').id;
-    if(ElIDnameStr) {
+    if (ElIDnameStr) {
       const id = getIDNumber(ElIDnameStr);
       const index = userBloodTests[currTest].elements.findIndex(obj => obj.id === id);
       if (index !== -1) {
-        removeFromDataStructure(userBloodTests[currTest].elements, index);
-        removeElementFromUI('blood-element-', id);
+        deleteFromDataStructure(userBloodTests[currTest].elements, index);
+        deleteElementFromUI('blood-element-', id);
         // removeElementsFromUI(index);
       }
     }
@@ -270,25 +270,29 @@ DOM.elementsList.forEach(el => {
   el.addEventListener('click', deleteElement);
 });
 
-const updateTestsList = ({id, date, location}) => {
+const noAdedTestsInformationToggle = () => {
   if (userBloodTests.length < 1) {
-   DOM.noTestsBox.style.display = 'block';
- } else {
-  DOM.noTestsBox.style.display = 'none';
-    const [year, month, day] = date.split('-');
-    const newTestHTML = `<div class="user-tests__item" id="user-test-${id}"><span class="red-label">${id + 1}.</span><span>Badanie z dnia ${day}-${month}-${year}, w ${location}</span><button class="btn-round btn-round--small margin-left-small" id="btn-options" title="Pokaż opcje"><svg class="icon-medium icon-grey margin-top-small"><use xlink:href="img/sprites2.svg#icon-menu"></use></svg></button><div class="user-tests__options"><button id="btn-open-test" class="btn-round btn-round--big margin-right-medium" title="Otwórz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites.svg#icon-launch"></use></svg></button><button id="btn-download-test" class="btn-round btn-round--big margin-right-medium" title="Pobierz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-save_alt"></use></svg></button><button id="btn-delete-test" class="btn-round btn-round--big margin-right-medium" title="Usuń badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-trash-2"></use></svg></button><button id="btn-return" class="btn-round btn-round--big" title="Powrót"><svg class="icon-big icon-grey"><use xlink:href="img/sprites2.svg#icon-corner-down-left"></use></svg></button></div></div>`;
-    DOM.userTests.insertAdjacentHTML('beforeend', newTestHTML);
- }
-}
+    DOM.noTestsBox.style.display = 'block';
+  } else {
+    DOM.noTestsBox.style.display = 'none';
+  }
+};
 
-const clearTest = () => {
+const updateTestsList = ({ id, date, location }) => {
+  noAdedTestsInformationToggle();
+  const [year, month, day] = date.split('-');
+  const newTestHTML = `<div class="user-tests__item" id="user-test-${id}"><span class="red-label">${id + 1}.</span><span>Badanie z dnia ${day}-${month}-${year}, w ${location}</span><button class="btn-round btn-round--small margin-left-small" id="btn-options" title="Pokaż opcje"><svg class="icon-medium icon-grey margin-top-small"><use xlink:href="img/sprites2.svg#icon-menu"></use></svg></button><div class="user-tests__options"><button id="btn-open-test" class="btn-round btn-round--big margin-right-medium" title="Otwórz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites.svg#icon-launch"></use></svg></button><button id="btn-download-test" class="btn-round btn-round--big margin-right-medium" title="Pobierz badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-save_alt"></use></svg></button><button id="btn-delete-test" class="btn-round btn-round--big margin-right-medium" title="Usuń badanie"><svg class="icon-big icon-grey"><use xlink:href="img/sprites1.svg#icon-trash-2"></use></svg></button><button id="btn-return" class="btn-round btn-round--big" title="Powrót"><svg class="icon-big icon-grey"><use xlink:href="img/sprites2.svg#icon-corner-down-left"></use></svg></button></div></div>`;
+  DOM.userTests.insertAdjacentHTML('beforeend', newTestHTML);
+};
+
+const clearTestInputFields = () => {
   DOM.datePicker.value = '';
   DOM.testLocation.value = '';
 };
 
-DOM.addAnotherTestBtn.addEventListener('click', () => { 
-  clearTest();
-  clearUI();
+DOM.addAnotherTestBtn.addEventListener('click', () => {
+  clearTestInputFields();
+  clearElementsListfromUI();
   currTest = -1;
 });
 
@@ -303,41 +307,51 @@ DOM.shrinkBtn.addEventListener('click', () => {
 });
 
 const userTestOptionsDisplayToggle = (e, id) => {
-  if (e.target.parentNode.id === 'btn-options' || 
-  e.target.id === 'btn-options' || 
-  e.target.parentNode.parentNode.id === 'btn-options' ||
-  e.target.parentNode.parentNode.id === 'btn-return') {
+  if (e.target.parentNode.id === 'btn-options' ||
+    e.target.id === 'btn-options' ||
+    e.target.parentNode.parentNode.id === 'btn-options' ||
+    e.target.parentNode.parentNode.id === 'btn-return' ||
+    e.target.parentNode.id === 'btn-return' ||
+    e.target.id === 'btn-return'
+  ) {
     const el = document.querySelector(`#user-test-${id} .user-tests__options`);
     el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
   }
 };
 
 const openTest = (e, id) => {
-  if (e.target.parentNode.parentNode.id === 'btn-open-test') {
+  if (e.target.parentNode.parentNode.id === 'btn-open-test' ||
+    e.target.id === 'btn-open-test' ||
+    e.target.parentNode.id === 'btn-open-test') {
     currTest = id;
     DOM.datePicker.value = userBloodTests[id].date;
     DOM.testLocation.value = userBloodTests[id].location;
-    clearUI();
+    clearElementsListfromUI();
     userBloodTests[id].elements.forEach(el => addElementToUI(el));
   }
-}
+};
 
 const downloadTest = (e, id) => {
-  if (e.target.parentNode.id === 'btn-download-test' || 
-  e.target.id === 'btn-download-test' || 
-  e.target.parentNode.parentNode.id === 'btn-download-test') {
+  if (e.target.parentNode.id === 'btn-download-test' ||
+    e.target.id === 'btn-download-test' ||
+    e.target.parentNode.parentNode.id === 'btn-download-test') {
     console.log(`Works`);
   }
 };
 
 const deleteTest = (e, id) => {
-  if (e.target.parentNode.id === 'btn-delete-test' || 
-  e.target.id === 'btn-delete-test' || 
-  e.target.parentNode.parentNode.id === 'btn-delete-test') {
+  if (e.target.parentNode.id === 'btn-delete-test' ||
+    e.target.id === 'btn-delete-test' ||
+    e.target.parentNode.parentNode.id === 'btn-delete-test') {
     const index = userBloodTests.findIndex(obj => obj.id === id);
     if (index !== -1) {
-      removeFromDataStructure(userBloodTests, index);
-      removeElementFromUI('user-test-', id);
+      deleteFromDataStructure(userBloodTests, index);
+      deleteElementFromUI('user-test-', id);
+      noAdedTestsInformationToggle();
+    }
+    if (id === currTest) {
+      clearElementsListfromUI();
+      clearTestInputFields();
     }
   }
 };
