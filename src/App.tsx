@@ -3,6 +3,7 @@ import logo from "./img/logo1x.png";
 import { FunctionComponent } from "react";
 import { UserData } from "./components/UserData";
 import { UserResults } from "./components/UserResults";
+import { UserAnalysis } from "./components/UserAnalysis";
 
 export const App: FunctionComponent = () => {
   return (
@@ -16,8 +17,9 @@ export const App: FunctionComponent = () => {
         <li className="navigation__item">PRZEWODNIK</li>
         <li className="navigation__item">KONTAKT</li>
       </nav>
-      <section className="user-data"></section>
-      <section className="user-results"></section>
+      <UserData />
+      <UserResults />
+      <UserAnalysis />
     </div>
   );
 };
