@@ -1,9 +1,9 @@
 import "./scss/main.scss";
 import logo from "./img/logo1x.png";
 import { FunctionComponent } from "react";
-import { UserData } from "./components/UserData";
-import { UserResults } from "./components/UserResults";
-import { UserAnalysis } from "./components/UserAnalysis";
+import { UserData } from "./components/UserData/UserData";
+import { UserResults } from "./components/UserResults/UserResults";
+import { UserAnalysis } from "./components/UserAnalysis/UserAnalysis";
 
 export const App: FunctionComponent = () => {
   return (
