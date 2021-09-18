@@ -1,0 +1,46 @@
+$color-primary-light: #d10000;
+$color-secondary-dark: #8f0000;
+$color-gray-dark-1: #444;
+$color-gray-dark-2: #707070;
+$color-gray-dark-3: #b1b1b1;
+$color-gray-dark-4: #818181;
+$color-gray-light-1: #e0e0e0;
+$color-gray-light-2: #f7f7f7;
+$shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+$shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+$line: 1px solid var(--color-gray-light-1);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  position: relative;
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
+  background-image: linear-gradient(
+    to right bottom,
+    $color-gray-dark-3,
+    $color-gray-dark-4
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: $color-gray-dark-1;
+  position: relative;
+  @include flex-center;
+  padding: 2rem 0;
+}
