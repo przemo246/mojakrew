@@ -1,7 +1,10 @@
 import "./scss/main.scss";
 import logo from "./img/logo1x.png";
+import { FunctionComponent } from "react";
+import { UserData } from "./components/UserData";
+import { UserResults } from "./components/UserResults";
 
-export const App = () => {
+export const App: FunctionComponent = () => {
   return (
     <div className="container">
       <nav className="navigation">
