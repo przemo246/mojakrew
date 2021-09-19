@@ -8,12 +8,17 @@ export const UserData: FunctionComponent = () => {
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (date && location) {
-      console.log("Submit form");
+      handleResetForm();
     }
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(e.target.value);
+  };
+
+  const handleResetForm = () => {
+    setLocation("");
+    setDate(new Date());
   };
 
   return (
@@ -39,7 +44,7 @@ export const UserData: FunctionComponent = () => {
         <button type="submit" className="btn btn-red">
           OK
         </button>
-        <button type="button" className="btn btn-red">
+        <button type="button" onClick={handleResetForm} className="btn btn-red">
           Wyczyść
         </button>
       </form>
