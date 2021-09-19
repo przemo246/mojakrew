@@ -6,6 +6,16 @@ export interface Element {
   result: number | string;
 }
 
+export interface ElementDetails {
+  name: string;
+  description: string;
+  unit: string;
+}
+
+export interface ElementData {
+  [key: string]: ElementDetails;
+}
+
 export interface Test {
   id: number;
   date: Date;
