@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState } from "react";
 import { Element } from "../../../types/interfaces";
+import { bloodElements } from "../../ts/bloodElements";
 
 export const UserResults: FunctionComponent = () => {
   const [results, setResults] = useState<Element>({
@@ -11,11 +12,30 @@ export const UserResults: FunctionComponent = () => {
   });
 
   const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setResults((prev) => ({ ...prev, id: e.target.value }));
+    const id = e.target.value;
+    setResults((prev) => ({ ...prev, id, name: bloodElements[id].name }));
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setResults((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const { id, name } = results;
+    const referenceFrom = Number(results.referenceFrom);
+    const referenceTo = Number(results.referenceTo);
+    const result = Number(results.result);
+    if (
+      id &&
+      name &&
+      referenceFrom > 0 &&
+      referenceTo > 0 &&
+      referenceFrom < referenceTo &&
+      result > 0
+    ) {
+      console.log("Form submitted");
+    }
   };
 
   return (
@@ -62,7 +82,7 @@ export const UserResults: FunctionComponent = () => {
           onChange={handleInputChange}
         />
       </form>
-      <form className="user-results__form">
+      <form className="user-results__form" onSubmit={handleSubmitForm}>
         <label htmlFor="referenceFrom" className="red-label">
           wart. referencyjna od
         </label>
