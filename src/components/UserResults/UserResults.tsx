@@ -2,7 +2,13 @@ import React, { FunctionComponent, useState } from "react";
 import { Element } from "../../../types/interfaces";
 import { bloodElements } from "../../ts/bloodElements";
 
-export const UserResults: FunctionComponent = () => {
+interface UserResultProps {
+  currentTest: number | null;
+}
+
+export const UserResults: FunctionComponent<UserResultProps> = ({
+  currentTest,
+}) => {
   const [results, setResults] = useState<Element>({
     id: "",
     name: "",
@@ -105,7 +111,9 @@ export const UserResults: FunctionComponent = () => {
           value={results.referenceTo}
           onChange={handleInputChange}
         />
-        <button className="btn btn-red">Dodaj</button>
+        <button className="btn btn-red" disabled={!currentTest ? true : false}>
+          Dodaj
+        </button>
       </form>
     </section>
   );

@@ -22,7 +22,7 @@ export const App: FunctionComponent = () => {
         <li className="navigation__item">KONTAKT</li>
       </nav>
       <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
-      <UserResults />
+      <UserResults currentTest={currentTest} />
       <UserAnalysis />
     </main>
   );
