@@ -1,7 +1,16 @@
 import React, { FunctionComponent, useState } from "react";
 import DatePicker from "react-date-picker";
+import { Test } from "../../../types/interfaces";
 
-export const UserData: FunctionComponent = () => {
+interface UserDataProps {
+  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
+  setCurrentTest: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
+export const UserData: FunctionComponent<UserDataProps> = ({
+  setTests,
+  setCurrentTest,
+}) => {
   const [location, setLocation] = useState<string>("");
   const [date, setDate] = useState<Date>(new Date());
 
