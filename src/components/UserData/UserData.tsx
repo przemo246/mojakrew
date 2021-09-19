@@ -12,8 +12,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
   setCurrentTest,
 }) => {
   const [location, setLocation] = useState<string>("");
-  const [date, setDate] = useState<Date>(new Date());
-
+  const [date, setDate] = useState<Date | null>(null);
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (date && location) {
