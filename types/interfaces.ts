@@ -1,9 +1,9 @@
 export interface Element {
   id: string;
   name: string;
-  refFrom: number;
-  refTo: number;
-  result: number;
+  referenceFrom: number | string;
+  referenceTo: number | string;
+  result: number | string;
 }
 
 export interface Test {
