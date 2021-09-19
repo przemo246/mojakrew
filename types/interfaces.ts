@@ -10,5 +10,5 @@ export interface Test {
   id: number;
   date: Date;
   location: string;
-  elements: Element[];
+  elements?: Element[];
 }
