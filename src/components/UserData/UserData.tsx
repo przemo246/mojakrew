@@ -17,6 +17,9 @@ export const UserData: FunctionComponent<UserDataProps> = ({
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (date && location) {
+      const id = Number(Date.now().toString().slice(-5));
+      setCurrentTest(id);
+      setTests((prevState) => [...prevState, { id, date, location }]);
       handleResetForm();
     }
   };
