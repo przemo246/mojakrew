@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useState } from "react";
-import { Element } from "../../../types/interfaces";
+import { Test, Element } from "../../../types/interfaces";
 import { bloodElements } from "../../ts/bloodElements";
 
 interface UserResultProps {
-  currentTest: number | null;
+  currentTest: Test | null;
 }
 
 export const UserResults: FunctionComponent<UserResultProps> = ({

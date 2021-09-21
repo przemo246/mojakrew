@@ -7,7 +7,7 @@ import { UserAnalysis } from "./components/UserAnalysis/UserAnalysis";
 import { Test } from "../types/interfaces";
 
 export const App: FunctionComponent = () => {
-  const [currentTest, setCurrentTest] = useState<number | null>(null);
+  const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [tests, setTests] = useState<Test[]>([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const App: FunctionComponent = () => {
       </nav>
       <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
       <UserResults currentTest={currentTest} />
-      <UserAnalysis tests={tests} />
+      <UserAnalysis currentTest={currentTest} />
     </main>
   );
 };

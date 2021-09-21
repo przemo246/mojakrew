@@ -1,6 +1,13 @@
 import { FunctionComponent } from "react";
+import { Test } from "../../../types/interfaces";
 
-export const UserAnalysis: FunctionComponent = () => {
+interface UserAnalysisProps {
+  currentTest: Test | null;
+}
+
+export const UserAnalysis: FunctionComponent<UserAnalysisProps> = ({
+  currentTest,
+}) => {
   return (
     <section className="user-analysis">
       <div className="headings">

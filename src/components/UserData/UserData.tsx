@@ -4,7 +4,7 @@ import { Test } from "../../../types/interfaces";
 
 interface UserDataProps {
   setTests: React.Dispatch<React.SetStateAction<Test[]>>;
-  setCurrentTest: React.Dispatch<React.SetStateAction<number | null>>;
+  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
 }
 
 export const UserData: FunctionComponent<UserDataProps> = ({
@@ -17,7 +17,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     e.preventDefault();
     if (date && location) {
       const id = Number(Date.now().toString().slice(-5));
-      setCurrentTest(id);
+      setCurrentTest({ id, date, location });
       setTests((prevState) => [...prevState, { id, date, location }]);
       handleResetForm();
     }
