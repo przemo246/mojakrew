@@ -10,6 +10,13 @@ export const App: FunctionComponent = () => {
   const [currentTest, setCurrentTest] = useState<number | null>(null);
   const [tests, setTests] = useState<Test[]>([]);
 
+  useEffect(() => {
+    const storedTests: string | null = localStorage.getItem("tests");
+    if (storedTests) {
+      setTests(JSON.parse(storedTests));
+    }
+  }, []);
+
   return (
     <main className="main">
       <nav className="navigation">
@@ -23,7 +30,7 @@ export const App: FunctionComponent = () => {
       </nav>
       <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
       <UserResults currentTest={currentTest} />
-      <UserAnalysis />
+      <UserAnalysis tests={tests} />
     </main>
   );
 };
