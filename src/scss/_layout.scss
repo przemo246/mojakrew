@@ -1,0 +1,149 @@
+.main {
+  min-width: 70vw;
+  background-color: $color-gray-light-2;
+  box-shadow: $shadow-dark;
+  min-height: 80vh;
+  border-radius: 3.5rem;
+  padding: 2rem 3rem;
+  text-align: center;
+  position: relative;
+}
+
+.logo {
+  width: 23rem;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  &__list {
+    list-style: none;
+    display: flex;
+  }
+  &__item:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+  &__item {
+    color: $color-gray-dark-1;
+    font-size: 1.8rem;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  &__item:hover {
+    color: $color-secondary-dark;
+  }
+}
+
+section {
+  padding: 1.5rem 0;
+}
+
+.user-results__form,
+.user-data__form {
+  @include flex-center;
+  margin-top: 1rem;
+}
+
+.user-data .red-label:nth-child(1) {
+  margin-right: 1rem;
+}
+
+.user-data .red-label:nth-child(3) {
+  margin-left: 1rem;
+}
+
+.user-data .btn-red:nth-last-child(1) {
+  margin-left: 1rem;
+}
+
+.headings {
+  display: flex;
+  justify-content: space-evenly;
+}
+.headings h2 {
+  width: 25%;
+}
+
+.user-analysis {
+  padding-bottom: 0;
+}
+
+.query-box {
+  width: 1.6rem;
+  height: 1.6rem;
+  border: 1px solid $color-gray-dark-2;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+.query-box span {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: $color-secondary-dark;
+}
+.query-box:hover .details-popup {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.blood-element {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.8rem;
+  border-bottom: 1px solid $color-gray-light-1;
+  position: relative;
+  padding: 1rem;
+  &__result,
+  &__unit,
+  &__reference,
+  &__element-name {
+    width: 25%;
+  }
+  &__element-name {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    color: $color-secondary-dark;
+  }
+  &__reference {
+    position: relative;
+  }
+  &__result {
+    @include flex-center;
+  }
+  &:nth-child(even) {
+    background-color: $color-gray-light-2;
+    filter: brightness(0.99);
+  }
+}
+
+input::placeholder {
+  color: $color-gray-dark-3;
+}
+
+input[type="number"] {
+  width: 9rem;
+}
+
+input:focus {
+  border: 1px solid $color-gray-dark-2;
+  outline: none;
+}
+
+input,
+select {
+  border: 1px solid $color-gray-light-1;
+  background-color: #fff;
+  color: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 1.4rem;
+  padding: 1rem 1.2rem;
+  margin: 0 1rem;
+  border-radius: 5px;
+}

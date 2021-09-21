@@ -1,0 +1,67 @@
+.heading-primary {
+  font-size: 3rem;
+  font-weight: 100;
+}
+
+.heading-secondary {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  font-weight: 100;
+}
+
+.heading-tertiary {
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.red-label {
+  color: $color-secondary-dark;
+  font-size: 1.9rem;
+}
+
+.order-number {
+  color: $color-secondary-dark;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+.btn {
+  height: 3.4rem;
+  min-width: 7rem;
+  padding: 0 1rem;
+  border-radius: 5rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.3rem;
+  font-family: inherit;
+}
+
+.btn-red {
+  background-color: $color-primary-light;
+  color: #fff;
+  transition: all 0.2s;
+  &:hover {
+    background-color: $color-secondary-dark;
+  }
+  &:disabled {
+    background-color: $color-gray-dark-1;
+    cursor: default;
+  }
+}
+
+// .user-pass {
+//   color: #00910e;
+//   fill: #00910e;
+// }
+
+// .user-fail {
+//   color: $color-primary-light);
+//   fill: var(--color-primary-light);
+// }
