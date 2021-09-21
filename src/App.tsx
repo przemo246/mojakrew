@@ -23,10 +23,11 @@ export const App: FunctionComponent = () => {
         <div className="logo-container">
           <img src={logo} className="logo" alt="" />
         </div>
-        <ul className="navigation__list"></ul>
-        <li className="navigation__item">BADANIA</li>
-        <li className="navigation__item">PRZEWODNIK</li>
-        <li className="navigation__item">KONTAKT</li>
+        <ul className="navigation__list">
+          <li className="navigation__item">BADANIA</li>
+          <li className="navigation__item">PRZEWODNIK</li>
+          <li className="navigation__item">KONTAKT</li>
+        </ul>
       </nav>
       <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
       <UserResults currentTest={currentTest} />
