@@ -30,7 +30,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
 
   const handleResetForm = () => {
     setLocation("");
-    setDate(new Date());
+    setDate(null);
   };
 
   return (
