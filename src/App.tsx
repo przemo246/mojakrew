@@ -17,6 +17,12 @@ export const App: FunctionComponent = () => {
     }
   }, []);
 
+  useEffect(() => {
+    if (tests.length > 0) {
+      localStorage.setItem("tests", JSON.stringify(tests));
+    }
+  }, [tests]);
+
   return (
     <main className="main">
       <nav className="navigation">
@@ -30,7 +36,11 @@ export const App: FunctionComponent = () => {
         </ul>
       </nav>
       <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
-      <UserResults currentTest={currentTest} />
+      <UserResults
+        setTests={setTests}
+        currentTest={currentTest}
+        setCurrentTest={setCurrentTest}
+      />
       <UserAnalysis currentTest={currentTest} />
     </main>
   );
