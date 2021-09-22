@@ -52,7 +52,7 @@ button {
   }
   &:disabled {
     background-color: $color-gray-dark-1;
-    cursor: default;
+    cursor: not-allowed;
   }
 }
 
