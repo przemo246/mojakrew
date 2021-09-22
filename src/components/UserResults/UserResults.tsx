@@ -4,10 +4,14 @@ import { bloodElements } from "../../ts/bloodElements";
 
 interface UserResultProps {
   currentTest: Test | null;
+  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
+  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
 }
 
 export const UserResults: FunctionComponent<UserResultProps> = ({
   currentTest,
+  setTests,
+  setCurrentTest,
 }) => {
   const [results, setResults] = useState<Element>({
     id: "",
@@ -44,7 +48,25 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
       referenceFrom < referenceTo &&
       result > 0
     ) {
-      console.log("Form submitted");
+      const bloodElementObj: Element = {
+        id,
+        name,
+        referenceFrom,
+        referenceTo,
+        result,
+      };
+      setCurrentTest((prev: any) => ({
+        ...prev,
+        elements: [...prev.elements, bloodElementObj],
+      }));
+      setTests((prev: Test[]): Test[] => {
+        return prev.map((obj: Test) => {
+          if (obj.id === currentTest?.id) {
+            return { ...obj, elements: [...obj.elements, bloodElementObj] };
+          }
+          return obj;
+        });
+      });
     }
   };
 
