@@ -19,7 +19,11 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
 
   const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
-    setResults((prev) => ({ ...prev, id, name: bloodElements[id].name }));
+    if (id) {
+      setResults((prev) => ({ ...prev, id, name: bloodElements[id].name }));
+    } else {
+      setResults((prev) => ({ ...prev, id }));
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
