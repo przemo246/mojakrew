@@ -55,9 +55,6 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <button type="submit" className="btn btn-red">
           OK
         </button>
-        <button type="button" onClick={handleResetForm} className="btn btn-red">
-          Wyczyść
-        </button>
       </form>
     </section>
   );
