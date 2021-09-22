@@ -67,6 +67,13 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           return obj;
         });
       });
+      setResults({
+        id: "",
+        name: "",
+        referenceFrom: "",
+        referenceTo: "",
+        result: "",
+      });
     }
   };
 
