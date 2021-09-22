@@ -123,6 +123,9 @@ section {
   &__wrapper {
     border: none !important;
   }
+  &--open {
+    border: 1px solid $color-gray-dark-2 !important;
+  }
 }
 
 .react-calendar__tile--now {
