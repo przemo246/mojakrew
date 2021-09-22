@@ -17,8 +17,9 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     e.preventDefault();
     if (date && location) {
       const id = Number(Date.now().toString().slice(-5));
-      setCurrentTest({ id, date, location });
-      setTests((prevState) => [...prevState, { id, date, location }]);
+      const currentTestObj = { id, date, location, elements: [] };
+      setCurrentTest(currentTestObj);
+      setTests((prevState) => [...prevState, currentTestObj]);
       handleResetForm();
     }
   };
