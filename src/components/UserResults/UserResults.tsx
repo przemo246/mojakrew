@@ -46,7 +46,8 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
       referenceFrom > 0 &&
       referenceTo > 0 &&
       referenceFrom < referenceTo &&
-      result > 0
+      result > 0 &&
+      currentTest
     ) {
       const bloodElementObj: Element = {
         id,
