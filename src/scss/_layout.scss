@@ -45,61 +45,29 @@ section {
   margin-top: 1rem;
 }
 
-.headings {
-  display: flex;
-  justify-content: space-evenly;
-}
-.headings h2 {
-  width: 25%;
+.headings,
+.blood-element {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr) 20px;
+  align-items: center;
+  justify-items: center;
 }
 
 .user-analysis {
   padding-bottom: 0;
 }
 
-.query-box {
-  width: 1.6rem;
-  height: 1.6rem;
-  border: 1px solid $color-gray-dark-2;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  position: relative;
-  align-items: center;
-  margin-left: 0.5rem;
-}
-.query-box span {
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: $color-secondary-dark;
-}
-.query-box:hover .details-popup {
-  opacity: 1;
-  transform: scale(1);
-}
-
 .blood-element {
-  display: flex;
-  justify-content: space-evenly;
   font-size: 1.8rem;
   border-bottom: 1px solid $color-gray-light-1;
   position: relative;
   padding: 1rem;
-  &__result,
-  &__unit,
-  &__reference,
-  &__element-name {
-    width: 25%;
-  }
+
   &__element-name {
     display: flex;
     justify-content: center;
     position: relative;
     color: $color-secondary-dark;
-  }
-  &__reference {
-    position: relative;
   }
   &__result {
     @include flex-center;
@@ -107,6 +75,10 @@ section {
   &:nth-child(even) {
     background-color: $color-gray-light-2;
     filter: brightness(0.99);
+  }
+  &__icon {
+    margin-left: 0.7rem;
+    width: 13px;
   }
 }
 

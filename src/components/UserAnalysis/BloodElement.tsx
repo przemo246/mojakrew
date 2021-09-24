@@ -1,6 +1,7 @@
 import { FunctionComponent } from "react";
 import { Element } from "../../../types/interfaces";
 import { bloodElements } from "../../ts/bloodElements";
+import { FaCheck, FaTrash, FaTimes, FaQuestionCircle } from "react-icons/fa";
 
 interface BloodElementProps {
   element: Element;
@@ -13,9 +14,7 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
     <div className="blood-element" id={element.id}>
       <div className="blood-element__element-name">
         <span>{element.name}</span>
-        <div className="query-box">
-          <span>?</span>
-        </div>
+        <FaQuestionCircle className="popup-icon" />
       </div>
       <div
         className={`blood-element__result ${
@@ -26,6 +25,12 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
         }`}
       >
         <span>{element.result}</span>
+        {element.result >= element.referenceFrom &&
+        element.result <= element.referenceTo ? (
+          <FaCheck className="blood-element__icon" />
+        ) : (
+          <FaTimes className="blood-element__icon" />
+        )}
       </div>
       <div className="blood-element__unit">
         <span>{bloodElements[element.id].unit}</span>
@@ -34,7 +39,9 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
         <span>
           {element.referenceFrom} - {element.referenceTo}
         </span>
-        <div className="blood-element__delete-icon"> {/* Delete icon */}</div>
+      </div>
+      <div className="blood-element__delete-icon">
+        <FaTrash className="blood-element__icon delete-icon" />
       </div>
     </div>
   );

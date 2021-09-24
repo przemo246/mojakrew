@@ -63,3 +63,21 @@ button {
 .user-fail {
   color: $color-primary-light;
 }
+
+.popup-icon {
+  width: 14px;
+  margin-left: 0.4rem;
+}
+
+.delete-icon {
+  cursor: pointer;
+}
+
+.delete-icon,
+.popup-icon {
+  color: $color-gray-dark-1;
+  transition: all 0.2s;
+  &:hover {
+    color: $color-secondary-dark;
+  }
+}
