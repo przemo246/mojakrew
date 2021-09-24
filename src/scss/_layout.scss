@@ -137,3 +137,33 @@ select {
   margin: 0 1rem;
   border-radius: 5px;
 }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 9998;
+}
+
+.modal {
+  grid-template-rows: auto 1fr;
+  position: fixed;
+  display: grid;
+  border-radius: 10px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  min-height: 50vh;
+  z-index: 9999;
+  &__close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 15px;
+  }
+}

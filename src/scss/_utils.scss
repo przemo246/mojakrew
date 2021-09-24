@@ -69,12 +69,19 @@ button {
   margin-left: 0.4rem;
 }
 
-.delete-icon {
+.delete-icon,
+.close-icon {
   cursor: pointer;
 }
 
+.close-icon {
+  width: 25px;
+  height: 25px;
+}
+
 .delete-icon,
-.popup-icon {
+.popup-icon,
+.close-icon {
   color: $color-gray-dark-1;
   transition: all 0.2s;
   &:hover {
