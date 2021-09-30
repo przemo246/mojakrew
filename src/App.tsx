@@ -34,7 +34,9 @@ export const App: FunctionComponent = () => {
             <img src={logo} className="logo" alt="" />
           </div>
           <ul className="navigation__list">
-            <li className="navigation__item">BADANIA</li>
+            <li className="navigation__item" onClick={toggleIsOpen}>
+              BADANIA
+            </li>
             <li className="navigation__item">PRZEWODNIK</li>
             <li className="navigation__item">KONTAKT</li>
           </ul>
@@ -47,7 +49,7 @@ export const App: FunctionComponent = () => {
         />
         <UserAnalysis currentTest={currentTest} />
       </main>
-      <Modal open={isOpen} onClose={toggleIsOpen} />
+      <Modal open={isOpen} onClose={toggleIsOpen} tests={tests} />
     </>
   );
 };
