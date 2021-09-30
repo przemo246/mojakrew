@@ -188,9 +188,8 @@ select {
     padding: 1.8rem 1rem;
     font-size: 1.8rem;
     border-bottom: 1px solid var(--color-gray-light-1);
-    position: relative;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     &:nth-child(even) {
       background-color: $color-gray-light-2;
       filter: brightness(0.99);

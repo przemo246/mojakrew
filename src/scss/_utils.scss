@@ -70,8 +70,15 @@ button {
 }
 
 .delete-icon,
-.close-icon {
+.close-icon,
+.options-icon {
   cursor: pointer;
+}
+
+.options-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 1.5rem;
 }
 
 .close-icon {
@@ -81,7 +88,8 @@ button {
 
 .delete-icon,
 .popup-icon,
-.close-icon {
+.close-icon,
+.options-icon {
   color: $color-gray-dark-1;
   transition: all 0.2s;
   &:hover {
