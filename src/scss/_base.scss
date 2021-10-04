@@ -28,8 +28,8 @@ body {
   background-repeat: no-repeat;
   min-height: 100vh;
   color: $color-gray-dark-1;
-  position: relative;
   @include flex-center;
   padding: 2rem 0;
   position: relative;
+  font-size: 1.6rem;
 }
