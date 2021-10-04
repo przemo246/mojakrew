@@ -64,7 +64,7 @@ button {
   color: $color-primary-light;
 }
 
-.popup-icon {
+.tooltip-icon {
   width: 14px;
   margin-left: 0.4rem;
 }
@@ -87,7 +87,7 @@ button {
 }
 
 .delete-icon,
-.popup-icon,
+.tooltip-icon,
 .close-icon,
 .options-icon {
   color: $color-gray-dark-1;
@@ -97,6 +97,40 @@ button {
   }
 }
 
+.tooltip-box:hover .tooltip {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tooltip-box {
+  position: relative;
+}
+
 .tooltip {
-  max-width: 30rem;
+  opacity: 0;
+  z-index: 99999;
+  color: #fff;
+  width: 19rem;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  text-align: center;
+  background-color: rgba(68, 68, 68, 0.95);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  transition: all 0.2s ease-in-out;
+  transform: scale(0);
+  cursor: default;
+  position: absolute;
+  right: -9.2rem;
+  bottom: 3.9rem;
+  &:before,
+  &:after {
+    content: "";
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid rgba(68, 68, 68, 0.95);
+    position: absolute;
+    bottom: -10px;
+    left: 43%;
+  }
 }

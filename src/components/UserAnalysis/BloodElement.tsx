@@ -2,7 +2,6 @@ import { FunctionComponent } from "react";
 import { Element } from "../../../types/interfaces";
 import { bloodElements } from "../../ts/bloodElements";
 import { FaCheck, FaTrash, FaTimes, FaQuestionCircle } from "react-icons/fa";
-import ReactTooltip from "react-tooltip";
 
 interface BloodElementProps {
   element: Element;
@@ -15,11 +14,10 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
     <div className="blood-element" id={element.id}>
       <div className="blood-element__element-name">
         <span>{element.name}</span>
-        <FaQuestionCircle
-          className="popup-icon"
-          data-tip={bloodElements[element.id].description}
-        />
-        <ReactTooltip className="tooltip" />
+        <div className="tooltip-box">
+          <FaQuestionCircle className="tooltip-icon" />
+          <div className="tooltip">{bloodElements[element.id].description}</div>
+        </div>
       </div>
       <div
         className={`blood-element__result ${
