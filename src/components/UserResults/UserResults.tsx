@@ -40,8 +40,9 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     const referenceFrom = Number(results.referenceFrom);
     const referenceTo = Number(results.referenceTo);
     const result = Number(results.result);
+    const index = currentTest?.elements.findIndex((el) => el.id === id);
     if (
-      id &&
+      index === -1 &&
       name &&
       referenceFrom > 0 &&
       referenceTo > 0 &&
