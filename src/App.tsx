@@ -14,7 +14,7 @@ export const App: FunctionComponent = () => {
   const [isOpen, toggleIsOpen] = useModal();
 
   useEffect(() => {
-    const storedTests: string | null = localStorage.getItem("tests");
+    const storedTests = localStorage.getItem("tests");
     if (storedTests) {
       setTests(JSON.parse(storedTests));
     }
