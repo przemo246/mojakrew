@@ -1,7 +1,7 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import reactDom from "react-dom";
-import { FaTimes, FaEllipsisV } from "react-icons/fa";
-import { Test } from "../../../types/interfaces";
+import { FaTimes, FaAlignJustify } from "react-icons/fa";
+import { Test, Settings } from "../../../types/interfaces";
 
 interface ModalProps {
   open: boolean;
@@ -14,11 +14,40 @@ export const Modal: FunctionComponent<ModalProps> = ({
   onClose,
   tests,
 }) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  if (!open) return null;
-  const toggleDropdownMenu = () => {
-    setIsDropdownOpen((prev) => !prev);
+  const [testSettingsWindow, setTestSettingsWindow] = useState<Settings[]>([]);
+  useEffect(() => {
+    const testSettings = tests.map((test) => ({
+      id: test.id,
+      isSettingsOpen: false,
+    }));
+    setTestSettingsWindow(testSettings);
+  }, [tests]);
+
+  const findTestSettings = (id: number) => {
+    return testSettingsWindow.find((el: Settings) => el.id === id);
   };
+
+  const findIsSettingsOpen = (id: number) => {
+    const result = findTestSettings(id);
+    if (result) {
+      return result.isSettingsOpen;
+    }
+  };
+
+  const toggleIsSettingsOpen = (id: number) => {
+    const result = findTestSettings(id);
+    if (result) {
+      setTestSettingsWindow((prev) => {
+        return prev.map((el) => {
+          if (el.id === result.id) {
+            return { ...el, isSettingsOpen: !el.isSettingsOpen };
+          }
+          return el;
+        });
+      });
+    }
+  };
+  if (!open) return null;
   const modalRoot = document.getElementById("modal-root") as HTMLElement;
   return reactDom.createPortal(
     <>
@@ -29,12 +58,6 @@ export const Modal: FunctionComponent<ModalProps> = ({
         </div>
         <div className="modal__content">
           <h2 className="modal__heading">Badania</h2>
-          <div
-            className="dropdown"
-            style={isDropdownOpen ? { display: "block" } : { display: "none" }}
-          >
-            <p>Dropdown</p>
-          </div>
           <div className="user-tests">
             {tests.length > 0 ? (
               tests.map((test, i) => (
@@ -51,10 +74,18 @@ export const Modal: FunctionComponent<ModalProps> = ({
                       {test.location}
                     </span>
                   </div>
-                  <FaEllipsisV
+                  <FaAlignJustify
                     className="options-icon"
-                    onClick={toggleDropdownMenu}
+                    onClick={() => toggleIsSettingsOpen(test.id)}
                   />
+                  <div
+                    className="user-tests__options"
+                    style={
+                      findIsSettingsOpen(test.id)
+                        ? { display: "block" }
+                        : { display: "none" }
+                    }
+                  ></div>
                 </div>
               ))
             ) : (

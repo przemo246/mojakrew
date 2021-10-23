@@ -22,3 +22,8 @@ export interface Test {
   location: string;
   elements: Element[];
 }
+
+export interface Settings {
+  id: number;
+  isSettingsOpen: boolean;
+}
