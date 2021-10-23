@@ -1,6 +1,12 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import reactDom from "react-dom";
-import { FaTimes, FaAlignJustify } from "react-icons/fa";
+import {
+  FaTimes,
+  FaAlignJustify,
+  FaEdit,
+  FaDownload,
+  FaTrash,
+} from "react-icons/fa";
 import { Test, TestOptions } from "../../../types/interfaces";
 
 interface ModalProps {
@@ -77,15 +83,30 @@ export const Modal: FunctionComponent<ModalProps> = ({
                   <FaAlignJustify
                     className="options-icon"
                     onClick={() => toggleIsOptionsOpen(test.id)}
+                    title="Pokaż opcje"
                   />
                   <div
                     className="user-tests__options"
                     style={
                       findIsOptionsOpen(test.id)
-                        ? { display: "block" }
+                        ? { display: "flex" }
                         : { display: "none" }
                     }
-                  ></div>
+                  >
+                    <div className="user-tests__buttons">
+                      <FaEdit className="options-icon" title="Otwórz badanie" />
+                      <FaDownload
+                        className="options-icon"
+                        title="Pobierz badanie"
+                      />
+                      <FaTrash className="options-icon" title="Usuń badanie" />
+                    </div>
+                    <FaAlignJustify
+                      className="options-icon"
+                      onClick={() => toggleIsOptionsOpen(test.id)}
+                      title="Pokaż badanie"
+                    />
+                  </div>
                 </div>
               ))
             ) : (

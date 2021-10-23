@@ -205,8 +205,17 @@ select {
     height: 100%;
     top: 50%;
     left: 50%;
+    padding: 1.8rem 1rem;
     transform: translate(-50%, -50%);
     background-color: $color-gray-light-2;
+  }
+
+  &__buttons {
+    flex-grow: 1;
+    @include flex-center;
+    & .options-icon:not(:last-child) {
+      margin-right: 2.5rem;
+    }
   }
   & .red-label {
     margin-right: 0.6rem;
