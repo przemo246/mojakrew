@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import reactDom from "react-dom";
 import { FaTimes, FaAlignJustify } from "react-icons/fa";
-import { Test, Settings } from "../../../types/interfaces";
+import { Test, TestOptions } from "../../../types/interfaces";
 
 interface ModalProps {
   open: boolean;
@@ -14,33 +14,33 @@ export const Modal: FunctionComponent<ModalProps> = ({
   onClose,
   tests,
 }) => {
-  const [testSettingsWindow, setTestSettingsWindow] = useState<Settings[]>([]);
+  const [testOptionsWindow, setTestOptionsWindow] = useState<TestOptions[]>([]);
   useEffect(() => {
-    const testSettings = tests.map((test) => ({
+    const testOptions = tests.map((test) => ({
       id: test.id,
-      isSettingsOpen: false,
+      isOptionsOpen: false,
     }));
-    setTestSettingsWindow(testSettings);
+    setTestOptionsWindow(testOptions);
   }, [tests]);
 
-  const findTestSettings = (id: number) => {
-    return testSettingsWindow.find((el: Settings) => el.id === id);
+  const findTestOptionsObj = (id: number) => {
+    return testOptionsWindow.find((el: TestOptions) => el.id === id);
   };
 
-  const findIsSettingsOpen = (id: number) => {
-    const result = findTestSettings(id);
+  const findIsOptionsOpen = (id: number) => {
+    const result = findTestOptionsObj(id);
     if (result) {
-      return result.isSettingsOpen;
+      return result.isOptionsOpen;
     }
   };
 
-  const toggleIsSettingsOpen = (id: number) => {
-    const result = findTestSettings(id);
+  const toggleIsOptionsOpen = (id: number) => {
+    const result = findTestOptionsObj(id);
     if (result) {
-      setTestSettingsWindow((prev) => {
+      setTestOptionsWindow((prev) => {
         return prev.map((el) => {
           if (el.id === result.id) {
-            return { ...el, isSettingsOpen: !el.isSettingsOpen };
+            return { ...el, isOptionsOpen: !el.isOptionsOpen };
           }
           return el;
         });
@@ -76,12 +76,12 @@ export const Modal: FunctionComponent<ModalProps> = ({
                   </div>
                   <FaAlignJustify
                     className="options-icon"
-                    onClick={() => toggleIsSettingsOpen(test.id)}
+                    onClick={() => toggleIsOptionsOpen(test.id)}
                   />
                   <div
                     className="user-tests__options"
                     style={
-                      findIsSettingsOpen(test.id)
+                      findIsOptionsOpen(test.id)
                         ? { display: "block" }
                         : { display: "none" }
                     }

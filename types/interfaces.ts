@@ -23,7 +23,7 @@ export interface Test {
   elements: Element[];
 }
 
-export interface Settings {
+export interface TestOptions {
   id: number;
-  isSettingsOpen: boolean;
+  isOptionsOpen: boolean;
 }
