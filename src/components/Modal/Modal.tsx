@@ -13,12 +13,14 @@ interface ModalProps {
   open: boolean;
   onClose: () => void;
   tests: Test[];
+  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
 }
 
 export const Modal: FunctionComponent<ModalProps> = ({
   open,
   onClose,
   tests,
+  setCurrentTest,
 }) => {
   const [testOptionsWindow, setTestOptionsWindow] = useState<TestOptions[]>([]);
   useEffect(() => {
@@ -31,6 +33,13 @@ export const Modal: FunctionComponent<ModalProps> = ({
 
   const findTestOptionsObj = (id: number) => {
     return testOptionsWindow.find((el: TestOptions) => el.id === id);
+  };
+
+  const findTestObjAndSetAsCurrentTest = (id: number) => {
+    const result = tests.find((test) => test.id === id);
+    if (result) {
+      setCurrentTest(result);
+    }
   };
 
   const findIsOptionsOpen = (id: number) => {
@@ -94,7 +103,11 @@ export const Modal: FunctionComponent<ModalProps> = ({
                     }
                   >
                     <div className="user-tests__buttons">
-                      <FaEdit className="options-icon" title="Otwórz badanie" />
+                      <FaEdit
+                        className="options-icon"
+                        title="Otwórz badanie"
+                        onClick={() => findTestObjAndSetAsCurrentTest(test.id)}
+                      />
                       <FaDownload
                         className="options-icon"
                         title="Pobierz badanie"

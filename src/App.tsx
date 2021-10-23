@@ -49,7 +49,12 @@ export const App: FunctionComponent = () => {
         />
         <UserAnalysis currentTest={currentTest} />
       </main>
-      <Modal open={isOpen} onClose={toggleIsOpen} tests={tests} />
+      <Modal
+        open={isOpen}
+        onClose={toggleIsOpen}
+        tests={tests}
+        setCurrentTest={setCurrentTest}
+      />
     </>
   );
 };
