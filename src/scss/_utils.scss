@@ -71,7 +71,8 @@ button {
 
 .delete-icon,
 .close-icon,
-.options-icon {
+.options-icon,
+.clear-icon {
   cursor: pointer;
 }
 
@@ -88,7 +89,8 @@ button {
 .delete-icon,
 .tooltip-icon,
 .close-icon,
-.options-icon {
+.options-icon,
+.clear-icon {
   color: $color-gray-dark-1;
   transition: all 0.2s;
   &:hover {
@@ -103,6 +105,17 @@ button {
 
 .tooltip-box {
   position: relative;
+}
+
+.clear-btn {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+  background-color: $color-gray-light-2;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
 }
 
 .tooltip {

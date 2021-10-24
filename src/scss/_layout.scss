@@ -45,6 +45,10 @@ section {
   margin-top: 2rem;
 }
 
+.user-data__location {
+  position: relative;
+}
+
 .headings,
 .blood-element {
   display: grid;
@@ -109,6 +113,11 @@ section {
 .react-calendar__tile--now:enabled:focus {
   background: $color-gray-dark-4 !important;
   color: #fff;
+}
+
+.react-date-picker__button:enabled:hover .react-date-picker__button__icon,
+.react-date-picker__button:enabled:focus .react-date-picker__button__icon {
+  stroke: $color-secondary-dark !important;
 }
 
 input::placeholder {

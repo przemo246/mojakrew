@@ -4,6 +4,7 @@ import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
 import { Notification } from "../Notification";
 import { AlertColor } from "@mui/material/Alert";
+import { IoMdClose } from "react-icons/io";
 
 interface UserDataProps {
   setTests: React.Dispatch<React.SetStateAction<Test[]>>;
@@ -37,6 +38,10 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     setLocation(e.target.value);
   };
 
+  const handleClearLocationInput = () => {
+    setLocation("");
+  };
+
   return (
     <section className="user-data">
       <span className="order-number">1</span>
@@ -49,14 +54,23 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <label htmlFor="location" className="red-label">
           nazwa i adres placówki
         </label>
-        <input
-          type="text"
-          name="location"
-          id="location"
-          placeholder="np. Bruss, Aleja Grunwaldzka 60, Gdańsk"
-          onChange={handleLocationChange}
-          value={location}
-        />
+        <div className="user-data__location">
+          <input
+            type="text"
+            name="location"
+            id="location"
+            placeholder="np. Bruss, Aleja Grunwaldzka 60, Gdańsk"
+            onChange={handleLocationChange}
+            value={location}
+          />
+          <div className="clear-btn">
+            <IoMdClose
+              className="clear-icon"
+              size="19px"
+              onClick={handleClearLocationInput}
+            />
+          </div>
+        </div>
         <button type="submit" className="btn btn-red">
           OK
         </button>
