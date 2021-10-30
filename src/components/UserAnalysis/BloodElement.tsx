@@ -26,12 +26,13 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
   ) => {
     const removedElementID = e.currentTarget.id;
     setTests((prev) => {
-      const findTest = prev.find((test) => test.id === currentTestID);
-      if (findTest) {
-        return [...prev, filterElements(findTest, removedElementID)];
-      } else {
-        return prev;
-      }
+      return prev.map((el) => {
+        if (el.id === currentTestID) {
+          return filterElements(el, removedElementID);
+        } else {
+          return el;
+        }
+      });
     });
     setCurrentTest((prev) => {
       if (prev) {
