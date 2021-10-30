@@ -1,15 +1,46 @@
-import { FunctionComponent } from "react";
-import { Element } from "../../../types/interfaces";
+import React, { FunctionComponent } from "react";
 import { bloodElements } from "../../ts/bloodElements";
+import { Test, Element } from "../../../types/interfaces";
 import { FaCheck, FaTrash, FaTimes, FaQuestionCircle } from "react-icons/fa";
 
 interface BloodElementProps {
   element: Element;
+  currentTestID: number;
+  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
+  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
 }
+
+const filterElements = (obj: Test, id: string) => {
+  const elementsFiltered = obj.elements.filter((el) => el.id !== id);
+  return { ...obj, elements: elementsFiltered };
+};
 
 export const BloodElement: FunctionComponent<BloodElementProps> = ({
   element,
+  currentTestID,
+  setTests,
+  setCurrentTest,
 }) => {
+  const handleRemoveBloodElement = (
+    e: React.MouseEvent<SVGElement, globalThis.MouseEvent>
+  ) => {
+    const removedElementID = e.currentTarget.id;
+    setTests((prev) => {
+      const findTest = prev.find((test) => test.id === currentTestID);
+      if (findTest) {
+        return [...prev, filterElements(findTest, removedElementID)];
+      } else {
+        return prev;
+      }
+    });
+    setCurrentTest((prev) => {
+      if (prev) {
+        return filterElements(prev, removedElementID);
+      } else {
+        return null;
+      }
+    });
+  };
   return (
     <div className="blood-element" id={element.id}>
       <div className="blood-element__element-name">
@@ -44,7 +75,11 @@ export const BloodElement: FunctionComponent<BloodElementProps> = ({
         </span>
       </div>
       <div className="blood-element__delete-icon">
-        <FaTrash className="blood-element__icon delete-icon" />
+        <FaTrash
+          className="blood-element__icon delete-icon"
+          id={element.id}
+          onClick={(e) => handleRemoveBloodElement(e)}
+        />
       </div>
     </div>
   );

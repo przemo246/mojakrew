@@ -47,7 +47,11 @@ export const App: FunctionComponent = () => {
           currentTest={currentTest}
           setCurrentTest={setCurrentTest}
         />
-        <UserAnalysis currentTest={currentTest} />
+        <UserAnalysis
+          currentTest={currentTest}
+          setTests={setTests}
+          setCurrentTest={setCurrentTest}
+        />
       </main>
       <Modal
         open={isOpen}
