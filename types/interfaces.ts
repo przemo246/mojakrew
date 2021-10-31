@@ -18,7 +18,7 @@ export interface ElementData {
 
 export interface Test {
   id: number;
-  date: Date;
+  date: string | number;
   location: string;
   elements: Element[];
 }

@@ -14,6 +14,7 @@ interface ModalProps {
   onClose: () => void;
   tests: Test[];
   setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
 }
 
 export const Modal: FunctionComponent<ModalProps> = ({
@@ -21,6 +22,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   onClose,
   tests,
   setCurrentTest,
+  setTests,
 }) => {
   const [testOptionsWindow, setTestOptionsWindow] = useState<TestOptions[]>([]);
   useEffect(() => {
@@ -35,11 +37,16 @@ export const Modal: FunctionComponent<ModalProps> = ({
     return testOptionsWindow.find((el: TestOptions) => el.id === id);
   };
 
-  const findTestObjAndSetAsCurrentTest = (id: number) => {
+  const handleSetCurrentTest = (id: number) => {
     const result = tests.find((test) => test.id === id);
     if (result) {
       setCurrentTest(result);
     }
+  };
+
+  const handleRemoveTest = (id: number) => {
+    setTests((prev) => prev.filter((test) => test.id !== id));
+    setCurrentTest((prev) => (prev?.id === id ? null : prev));
   };
 
   const findIsOptionsOpen = (id: number) => {
@@ -106,13 +113,17 @@ export const Modal: FunctionComponent<ModalProps> = ({
                       <FaEdit
                         className="options-icon"
                         title="Otwórz badanie"
-                        onClick={() => findTestObjAndSetAsCurrentTest(test.id)}
+                        onClick={() => handleSetCurrentTest(test.id)}
                       />
                       <FaDownload
                         className="options-icon"
                         title="Pobierz badanie"
                       />
-                      <FaTrash className="options-icon" title="Usuń badanie" />
+                      <FaTrash
+                        className="options-icon"
+                        title="Usuń badanie"
+                        onClick={() => handleRemoveTest(test.id)}
+                      />
                     </div>
                     <FaAlignJustify
                       className="options-icon"

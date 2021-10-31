@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useState } from "react";
-import DatePicker from "react-date-picker";
 import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
 import { Notification } from "../Notification";
@@ -16,7 +15,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
   setCurrentTest,
 }) => {
   const [location, setLocation] = useState<string>("");
-  const [date, setDate] = useState<Date | null>(null);
+  const [date, setDate] = useState<string | number>("");
   const [notification, setNotification] = useState<{
     type: AlertColor;
     message: string;
@@ -32,6 +31,10 @@ export const UserData: FunctionComponent<UserDataProps> = ({
       setNotification({ type: "success", message: "Dodano nowe badanie" });
       toggleIsNotificationOpen();
     }
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(e.currentTarget.value);
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +53,13 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <label htmlFor="date" className="red-label">
           data
         </label>
-        <DatePicker value={date} onChange={setDate} name="date" />
+        <input
+          type="date"
+          value={date}
+          onChange={(e) => handleDateChange(e)}
+          name="date"
+          id="date"
+        />
         <label htmlFor="location" className="red-label">
           nazwa i adres placówki
         </label>

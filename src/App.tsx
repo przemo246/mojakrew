@@ -23,6 +23,8 @@ export const App: FunctionComponent = () => {
   useEffect(() => {
     if (tests.length > 0) {
       localStorage.setItem("tests", JSON.stringify(tests));
+    } else {
+      localStorage.clear();
     }
   }, [tests]);
 
@@ -58,6 +60,7 @@ export const App: FunctionComponent = () => {
         onClose={toggleIsOpen}
         tests={tests}
         setCurrentTest={setCurrentTest}
+        setTests={setTests}
       />
     </>
   );
