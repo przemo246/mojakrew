@@ -83,7 +83,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <button
           type="submit"
           className="btn btn-red"
-          disabled={!location && !date ? true : false}
+          disabled={location && date ? false : true}
         >
           OK
         </button>
