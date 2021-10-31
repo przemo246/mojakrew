@@ -39,8 +39,7 @@ export const App: FunctionComponent = () => {
             <li className="navigation__item" onClick={toggleIsOpen}>
               BADANIA
             </li>
-            <li className="navigation__item">PRZEWODNIK</li>
-            <li className="navigation__item">KONTAKT</li>
+            <li className="navigation__item">AUTOR</li>
           </ul>
         </nav>
         <UserData
