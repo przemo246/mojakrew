@@ -2,9 +2,9 @@
   min-width: 70vw;
   background-color: $color-gray-light-2;
   box-shadow: $shadow-dark;
-  min-height: 80vh;
-  border-radius: 3.5rem;
-  padding: 2rem 3rem;
+  min-height: 90vh;
+  border-radius: 2rem;
+  padding: 2rem 0;
   text-align: center;
   position: relative;
 }
@@ -65,7 +65,7 @@ section {
   font-size: 1.8rem;
   border-bottom: 1px solid $color-gray-light-1;
   position: relative;
-  padding: 1rem;
+  padding: 1rem 2rem;
 
   &__element-name {
     display: flex;
@@ -163,7 +163,6 @@ select {
   display: grid;
   border-radius: 10px;
   background-color: #fff;
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
