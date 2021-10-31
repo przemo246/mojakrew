@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
 import { Notification } from "../Notification";
@@ -7,11 +7,13 @@ import { AlertColor } from "@mui/material/Alert";
 interface UserDataProps {
   setTests: React.Dispatch<React.SetStateAction<Test[]>>;
   setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  currentTest: Test | null;
 }
 
 export const UserData: FunctionComponent<UserDataProps> = ({
   setTests,
   setCurrentTest,
+  currentTest,
 }) => {
   const [location, setLocation] = useState<string>("");
   const [date, setDate] = useState<string | number>("");
@@ -20,6 +22,15 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     message: string;
   }>({ type: "info", message: "" });
   const [isNotificationOpen, toggleIsNotificationOpen] = useNotification();
+  useEffect(() => {
+    if (currentTest) {
+      setLocation(currentTest.location);
+      setDate(currentTest.date);
+    } else {
+      setLocation("");
+      setDate("");
+    }
+  }, [currentTest]);
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (date && location) {

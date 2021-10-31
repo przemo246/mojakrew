@@ -43,7 +43,11 @@ export const App: FunctionComponent = () => {
             <li className="navigation__item">KONTAKT</li>
           </ul>
         </nav>
-        <UserData setTests={setTests} setCurrentTest={setCurrentTest} />
+        <UserData
+          setTests={setTests}
+          setCurrentTest={setCurrentTest}
+          currentTest={currentTest}
+        />
         <UserResults
           setTests={setTests}
           currentTest={currentTest}
