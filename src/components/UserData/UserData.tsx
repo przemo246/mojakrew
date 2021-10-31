@@ -3,7 +3,6 @@ import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
 import { Notification } from "../Notification";
 import { AlertColor } from "@mui/material/Alert";
-import { IoMdClose } from "react-icons/io";
 
 interface UserDataProps {
   setTests: React.Dispatch<React.SetStateAction<Test[]>>;
@@ -41,8 +40,10 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     setLocation(e.target.value);
   };
 
-  const handleClearLocationInput = () => {
+  const handleAddNewTest = () => {
     setLocation("");
+    setDate("");
+    setCurrentTest(null);
   };
 
   return (
@@ -72,13 +73,6 @@ export const UserData: FunctionComponent<UserDataProps> = ({
             onChange={handleLocationChange}
             value={location}
           />
-          <div className="clear-btn">
-            <IoMdClose
-              className="clear-icon"
-              size="19px"
-              onClick={handleClearLocationInput}
-            />
-          </div>
         </div>
         <button
           type="submit"
@@ -86,6 +80,14 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           disabled={location && date ? false : true}
         >
           OK
+        </button>
+        <button
+          type="button"
+          style={{ marginLeft: "1rem" }}
+          className="btn btn-red"
+          onClick={handleAddNewTest}
+        >
+          Nowe badanie
         </button>
       </form>
       <Notification
