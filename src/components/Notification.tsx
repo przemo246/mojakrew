@@ -44,6 +44,7 @@ export const Notification: FunctionComponent<NotificationProps> = ({
         sx={{
           width: "100%",
           fontSize: "1.4rem",
+          fontFamily: "inherit",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
