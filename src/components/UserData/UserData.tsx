@@ -43,14 +43,6 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     }
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDate(e.currentTarget.value);
-  };
-
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value);
-  };
-
   const handleAddNewTest = () => {
     setLocation("");
     setDate("");
@@ -68,7 +60,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <input
           type="date"
           value={date}
-          onChange={(e) => handleDateChange(e)}
+          onChange={(e) => setDate(e.target.value)}
           name="date"
           id="date"
         />
@@ -81,7 +73,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
             name="location"
             id="location"
             placeholder="np. Bruss, Aleja Grunwaldzka 60, Gdańsk"
-            onChange={handleLocationChange}
+            onChange={(e) => setLocation(e.target.value)}
             value={location}
           />
         </div>
