@@ -1,5 +1,8 @@
 import { FunctionComponent, useEffect, useState } from "react";
+import { PDFDownloadLink } from "@react-pdf/renderer";
 import reactDom from "react-dom";
+import { AiOutlineLoading } from "react-icons/ai";
+import { TestPDF } from "./TestPDF";
 import {
   FaTimes,
   FaAlignJustify,
@@ -115,10 +118,33 @@ export const Modal: FunctionComponent<ModalProps> = ({
                         title="Otwórz badanie"
                         onClick={() => handleSetCurrentTest(test.id)}
                       />
-                      <FaDownload
-                        className="options-icon"
-                        title="Pobierz badanie"
-                      />
+                      <PDFDownloadLink
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          marginRight: "2.5rem",
+                        }}
+                        document={
+                          <TestPDF
+                            elements={test.elements}
+                            date={test.date}
+                            location={test.location}
+                          />
+                        }
+                        fileName={`${test.id} - ${test.location} - ${test.date}`}
+                      >
+                        {({ blob, url, loading, error }) =>
+                          loading ? (
+                            <AiOutlineLoading className="loading-spinner" />
+                          ) : (
+                            <FaDownload
+                              className="options-icon"
+                              title="Pobierz badanie"
+                            />
+                          )
+                        }
+                      </PDFDownloadLink>
                       <FaTrash
                         className="options-icon"
                         title="Usuń badanie"
