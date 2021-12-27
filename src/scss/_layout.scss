@@ -45,6 +45,12 @@ section {
   margin-top: 2rem;
 }
 
+.user-data__form {
+  & button:first-of-type {
+    margin-right: 1rem;
+  }
+}
+
 .user-data__location {
   position: relative;
 }
