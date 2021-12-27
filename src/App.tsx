@@ -1,5 +1,5 @@
 import "./scss/main.scss";
-import logo from "./img/logo1x.png";
+import logo from "./assets/img/logo1x.png";
 import { FunctionComponent, useState, useEffect, Fragment } from "react";
 import { UserData } from "./components/UserData/UserData";
 import { UserResults } from "./components/UserResults/UserResults";
