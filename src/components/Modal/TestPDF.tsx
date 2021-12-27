@@ -56,7 +56,8 @@ export const TestPDF: FunctionComponent<TestPDFProps> = ({
       <Page size="A4" style={styles.page}>
         <Image style={styles.image} src={logo} />
         <Text>
-          Badanie z dnia {date} wykonane w {location}.
+          Badanie z dnia {new Date(date).toLocaleDateString("en-GB")} wykonane w{" "}
+          {location}.
         </Text>
         <View style={styles.section}>
           {elements.map((el) => {
