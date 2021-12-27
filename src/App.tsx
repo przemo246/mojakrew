@@ -39,7 +39,24 @@ export const App: FunctionComponent = () => {
             <li className="navigation__item" onClick={toggleIsOpen}>
               BADANIA
             </li>
-            <li className="navigation__item">AUTOR</li>
+            <li className="navigation__item">
+              <a
+                href="https://github.com/Przemo246/mojakrew"
+                rel="noreferrer"
+                target="_blank"
+                className="navigation__link"
+              >
+                GITHUB
+              </a>
+            </li>
+            <li className="navigation__item">
+              <a
+                className="navigation__link"
+                href="mailto:przemo247@outlook.com"
+              >
+                EMAIL
+              </a>
+            </li>
           </ul>
         </nav>
         <UserData

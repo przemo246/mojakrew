@@ -24,13 +24,16 @@
   &__item:not(:last-child) {
     margin-right: 1.5rem;
   }
-  &__item {
+  &__item,
+  &__link {
     color: $color-gray-dark-1;
     font-size: 1.8rem;
     transition: all 0.2s;
     cursor: pointer;
+    text-decoration: none;
   }
-  &__item:hover {
+  &__item:hover,
+  &__link:hover {
     color: $color-secondary-dark;
   }
 }
