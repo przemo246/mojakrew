@@ -65,9 +65,9 @@ export const TestPDF: FunctionComponent<TestPDFProps> = ({
                 {el.name} - wynik:{" "}
                 {el.result >= el.referenceFrom &&
                 el.result <= el.referenceTo ? (
-                  <Text style={{ color: "green" }}>{el.result}</Text>
+                  <Text style={{ color: "#00910e" }}>{el.result}</Text>
                 ) : (
-                  <Text style={{ color: "red" }}>{el.result}</Text>
+                  <Text style={{ color: "#d10000" }}>{el.result}</Text>
                 )}{" "}
                 - wartość referencyjna od {el.referenceFrom} do {el.referenceTo}
               </Text>
