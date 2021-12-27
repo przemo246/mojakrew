@@ -1,7 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
-import { Notification } from "../Notification";
+import { Notification } from "../atoms/Notification";
+import { Label } from "../atoms/Label";
+import { ButtonRed } from "../atoms/ButtonRed";
 import { AlertColor } from "@mui/material/Alert";
 
 interface UserDataProps {
@@ -54,9 +56,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
       <span className="order-number">1</span>
       <h1 className="heading-primary">Uzupełnij informacje o badaniu</h1>
       <form onSubmit={handleSubmitForm} className="user-data__form">
-        <label htmlFor="date" className="red-label">
-          data
-        </label>
+        <Label htmlFor="date">data</Label>
         <input
           type="date"
           value={date}
@@ -64,9 +64,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           name="date"
           id="date"
         />
-        <label htmlFor="location" className="red-label">
-          nazwa i adres placówki
-        </label>
+        <Label htmlFor="location">nazwa i adres placówki</Label>
         <div className="user-data__location">
           <input
             type="text"
@@ -77,21 +75,12 @@ export const UserData: FunctionComponent<UserDataProps> = ({
             value={location}
           />
         </div>
-        <button
-          type="submit"
-          className="btn btn-red"
-          disabled={location && date ? false : true}
-        >
+        <ButtonRed type="submit" disabled={location && date ? false : true}>
           OK
-        </button>
-        <button
-          type="button"
-          style={{ marginLeft: "1rem" }}
-          className="btn btn-red"
-          onClick={handleAddNewTest}
-        >
+        </ButtonRed>
+        <ButtonRed type="button" onClick={handleAddNewTest} disabled={false}>
           Nowe badanie
-        </button>
+        </ButtonRed>
       </form>
       <Notification
         type={notification.type}
