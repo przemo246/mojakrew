@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/mojakrew/static/css/main.33a3731a.chunk.css",
+    "main.js": "/mojakrew/static/js/main.422bc03e.chunk.js",
+    "main.js.map": "/mojakrew/static/js/main.422bc03e.chunk.js.map",
+    "runtime-main.js": "/mojakrew/static/js/runtime-main.3f668c06.js",
+    "runtime-main.js.map": "/mojakrew/static/js/runtime-main.3f668c06.js.map",
+    "static/js/2.25f6420b.chunk.js": "/mojakrew/static/js/2.25f6420b.chunk.js",
+    "static/js/2.25f6420b.chunk.js.map": "/mojakrew/static/js/2.25f6420b.chunk.js.map",
+    "index.html": "/mojakrew/index.html",
+    "static/css/main.33a3731a.chunk.css.map": "/mojakrew/static/css/main.33a3731a.chunk.css.map",
+    "static/js/2.25f6420b.chunk.js.LICENSE.txt": "/mojakrew/static/js/2.25f6420b.chunk.js.LICENSE.txt",
+    "static/media/logo1x.5d80f5b2.png": "/mojakrew/static/media/logo1x.5d80f5b2.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3f668c06.js",
+    "static/js/2.25f6420b.chunk.js",
+    "static/css/main.33a3731a.chunk.css",
+    "static/js/main.422bc03e.chunk.js"
+  ]
+}
