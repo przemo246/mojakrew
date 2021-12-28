@@ -64,7 +64,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           name="date"
           id="date"
         />
-        <Label htmlFor="location">nazwa i adres placówki</Label>
+        <Label htmlFor="location">miejsce</Label>
         <div className="user-data__location">
           <input
             type="text"
@@ -79,7 +79,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           OK
         </ButtonRed>
         <ButtonRed type="button" onClick={handleAddNewTest} disabled={false}>
-          Nowe badanie
+          DODAJ NOWE
         </ButtonRed>
       </form>
       <Notification
