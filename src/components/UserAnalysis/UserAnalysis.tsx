@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import { Test } from "../../../types/interfaces";
 import { BloodElement } from "./BloodElement";
 
