@@ -62,7 +62,7 @@ export const TestPDF: FunctionComponent<TestPDFProps> = ({
         <View style={styles.section}>
           {elements.map((el) => {
             return (
-              <Text style={styles.text}>
+              <Text key={el.id} style={styles.text}>
                 {el.name} - wynik:{" "}
                 {el.result >= el.referenceFrom &&
                 el.result <= el.referenceTo ? (
