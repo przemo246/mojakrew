@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState } from "react";
 import { Test, Element } from "../../../types/interfaces";
 import { bloodElements } from "../../ts/bloodElements";
+import { ButtonRed } from "../atoms/ButtonRed";
 
 interface UserResultProps {
   currentTest: Test | null;
@@ -149,9 +150,9 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           value={results.referenceTo}
           onChange={handleInputChange}
         />
-        <button className="btn btn-red" disabled={!currentTest ? true : false}>
+        <ButtonRed type="submit" disabled={!currentTest ? true : false}>
           Dodaj
-        </button>
+        </ButtonRed>
       </form>
     </section>
   );
