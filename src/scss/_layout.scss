@@ -1,32 +1,33 @@
 .main {
-  min-width: 70vw;
   background-color: $color-gray-light-2;
   box-shadow: $shadow-dark;
   min-height: 90vh;
-  padding: 2rem 0;
   text-align: center;
   position: relative;
+  display: flex;
 }
 
 .logo {
-  width: 23rem;
+  width: 5rem;
+  margin-bottom: 3rem;
 }
 
 .navigation {
   display: flex;
-  justify-content: space-evenly;
+  background-color: $color-gray-light-1;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  padding: 2rem 2.5rem;
   &__list {
     list-style: none;
-    display: flex;
   }
   &__item:not(:last-child) {
-    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
   }
-  &__item,
-  &__link {
+  &__item {
     color: $color-gray-dark-1;
-    font-size: 1.8rem;
+    font-size: 2.3rem;
     transition: all 0.2s;
     cursor: pointer;
     text-decoration: none;
@@ -96,7 +97,7 @@ section {
 
 .react-date-picker {
   border: 1px solid $color-gray-light-1;
-  background-color: #fff;
+  background-color: $color-white;
   color: inherit;
   font-family: inherit;
   font-weight: inherit;
@@ -120,7 +121,7 @@ section {
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
   background: $color-gray-dark-4 !important;
-  color: #fff;
+  color: $color-white;
 }
 
 .react-date-picker__button:enabled:hover .react-date-picker__button__icon,
@@ -145,7 +146,7 @@ select:focus {
 input,
 select {
   border: 1px solid $color-gray-light-1;
-  background-color: #fff;
+  background-color: $color-white;
   color: inherit;
   font-family: inherit;
   font-weight: inherit;
@@ -170,7 +171,7 @@ select {
   position: fixed;
   display: grid;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: $color-white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
