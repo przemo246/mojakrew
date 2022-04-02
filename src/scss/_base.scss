@@ -19,15 +19,9 @@ body {
   font-family: "Inter", sans-serif;
   font-weight: 300;
   line-height: 1.6;
-  background-image: linear-gradient(
-    to right bottom,
-    $color-gray-dark-3,
-    $color-gray-dark-4
-  );
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-color: $color-gray-dark-2;
   min-height: 100vh;
-  color: $color-gray-dark-1;
+  color: $font-color;
   @include flex-center;
   padding: 2rem 0;
   position: relative;
