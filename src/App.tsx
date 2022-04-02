@@ -32,21 +32,23 @@ export const App: FunctionComponent = () => {
         setCurrentTest={setCurrentTest}
         setTests={setTests}
       />
-      <UserData
-        setTests={setTests}
-        setCurrentTest={setCurrentTest}
-        currentTest={currentTest}
-      />
-      <UserResults
-        setTests={setTests}
-        currentTest={currentTest}
-        setCurrentTest={setCurrentTest}
-      />
-      <UserAnalysis
-        currentTest={currentTest}
-        setTests={setTests}
-        setCurrentTest={setCurrentTest}
-      />
+      <section className="content">
+        <UserData
+          setTests={setTests}
+          setCurrentTest={setCurrentTest}
+          currentTest={currentTest}
+        />
+        <UserResults
+          setTests={setTests}
+          currentTest={currentTest}
+          setCurrentTest={setCurrentTest}
+        />
+        <UserAnalysis
+          currentTest={currentTest}
+          setTests={setTests}
+          setCurrentTest={setCurrentTest}
+        />
+      </section>
     </main>
   );
 };
