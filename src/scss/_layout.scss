@@ -39,7 +39,15 @@
 }
 
 section {
-  padding: 1.5rem 0;
+  padding: 1rem 0;
+}
+
+.user-profile {
+  display: flex;
+  justify-content: flex-end;
+  &__buttons button {
+    margin-right: 1rem;
+  }
 }
 
 .user-results__form,
@@ -170,7 +178,7 @@ select {
   grid-template-rows: auto 1fr;
   position: fixed;
   display: grid;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: $color-white;
   top: 50%;
   left: 50%;
