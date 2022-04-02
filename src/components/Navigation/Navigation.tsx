@@ -25,13 +25,13 @@ export const Navigation: FunctionComponent<NavigationProps> = ({
         </div>
         <ul className="navigation__list">
           <li className="navigation__item" onClick={toggleIsOpen}>
-            <MdLibraryAdd />
+            <MdLibraryAdd title="Dodaj badanie" />
           </li>
           <li className="navigation__item">
-            <MdList />
+            <MdList title="Lista badań" />
           </li>
           <li className="navigation__item">
-            <MdAccountCircle />
+            <MdAccountCircle title="Profil użytkownika" />
           </li>
         </ul>
       </nav>
