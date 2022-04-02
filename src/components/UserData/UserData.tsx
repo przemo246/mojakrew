@@ -79,7 +79,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           OK
         </ButtonRed>
         <ButtonRed type="button" onClick={handleAddNewTest} disabled={false}>
-          DODAJ NOWE
+          RESETUJ
         </ButtonRed>
       </form>
       <Notification
