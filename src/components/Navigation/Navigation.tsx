@@ -1,8 +1,9 @@
 import { FunctionComponent } from "react";
-import logo from "../../assets/img/logo1x.png";
+import logo from "../../assets/img/logo.png";
 import { Modal } from "../Modal/Modal";
 import { useModal } from "../../hooks/useModal";
 import { Test } from "../../../types/interfaces";
+import { MdLibraryAdd, MdAccountCircle, MdList } from "react-icons/md";
 
 interface NavigationProps {
   tests: Test[];
@@ -24,22 +25,13 @@ export const Navigation: FunctionComponent<NavigationProps> = ({
         </div>
         <ul className="navigation__list">
           <li className="navigation__item" onClick={toggleIsOpen}>
-            BADANIA
+            <MdLibraryAdd />
           </li>
           <li className="navigation__item">
-            <a
-              href="https://github.com/Przemo246/mojakrew"
-              rel="noreferrer"
-              target="_blank"
-              className="navigation__link"
-            >
-              GITHUB
-            </a>
+            <MdList />
           </li>
           <li className="navigation__item">
-            <a className="navigation__link" href="mailto:przemo247@outlook.com">
-              EMAIL
-            </a>
+            <MdAccountCircle />
           </li>
         </ul>
       </nav>
