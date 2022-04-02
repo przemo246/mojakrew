@@ -63,6 +63,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
           onChange={(e) => setDate(e.target.value)}
           name="date"
           id="date"
+          required
         />
         <Label htmlFor="location">miejsce</Label>
         <div className="user-data__location">
@@ -73,6 +74,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
             placeholder="np. Bruss, Aleja Grunwaldzka 60, Gdańsk"
             onChange={(e) => setLocation(e.target.value)}
             value={location}
+            required
           />
         </div>
         <ButtonRed type="submit" disabled={location && date ? false : true}>
