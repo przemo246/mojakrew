@@ -17,11 +17,11 @@ export const Navigation: FunctionComponent = () => {
               <MdList title="Lista badań" />
             </NavLink>
           </li>
-          <li className="navigation__item">
+          {/* <li className="navigation__item">
             <NavLink to="/user-profile">
               <MdAccountCircle title="Profil użytkownika" />
             </NavLink>
-          </li>
+          </li> */}
         </ul>
       </nav>
     </>

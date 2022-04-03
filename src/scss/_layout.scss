@@ -54,8 +54,21 @@ section {
 .user-profile {
   display: flex;
   justify-content: flex-end;
-  &__buttons button {
+  &__buttons button,
+  &__email,
+  &__logout-btn {
     margin-right: 1rem;
+  }
+  &__logout-btn {
+    @include flex-center;
+    font-size: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      color: $color-secondary-dark;
+    }
+  }
+  &__credentials {
+    @include flex-center;
   }
 }
 
@@ -213,6 +226,21 @@ select {
     align-items: center;
     position: relative;
   }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    & button {
+      align-self: center;
+    }
+  }
+  &__inputs {
+    margin-bottom: 2rem;
+  }
 }
 
 .user-tests {
@@ -291,4 +319,8 @@ select {
       background-color: $color-gray-light-1;
     }
   }
+}
+
+.vendor-img {
+  width: 18rem;
 }
