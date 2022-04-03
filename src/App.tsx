@@ -1,10 +1,10 @@
 import "./scss/main.scss";
-import { FunctionComponent, useState, useEffect } from "react";
-import { UserData } from "./components/UserData/UserData";
-import { UserResults } from "./components/UserResults/UserResults";
-import { UserAnalysis } from "./components/UserAnalysis/UserAnalysis";
+import { FunctionComponent, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout/Layout";
 import { Test } from "../types/interfaces";
-import { Navigation } from "./components/Navigation/Navigation";
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { TestsList } from "./components/TestsList/TestsList";
 
 export const App: FunctionComponent = () => {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
@@ -24,31 +24,30 @@ export const App: FunctionComponent = () => {
       localStorage.clear();
     }
   }, [tests]);
-
   return (
-    <main className="main">
-      <Navigation
-        tests={tests}
-        setCurrentTest={setCurrentTest}
-        setTests={setTests}
-      />
-      <section className="content">
-        <UserData
-          setTests={setTests}
-          setCurrentTest={setCurrentTest}
-          currentTest={currentTest}
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <Dashboard
+              setTests={setTests}
+              setCurrentTest={setCurrentTest}
+              currentTest={currentTest}
+            />
+          }
         />
-        <UserResults
-          setTests={setTests}
-          currentTest={currentTest}
-          setCurrentTest={setCurrentTest}
+        <Route
+          path="/tests-list"
+          element={
+            <TestsList
+              tests={tests}
+              setCurrentTest={setCurrentTest}
+              setTests={setTests}
+            />
+          }
         />
-        <UserAnalysis
-          currentTest={currentTest}
-          setTests={setTests}
-          setCurrentTest={setCurrentTest}
-        />
-      </section>
-    </main>
+      </Route>
+    </Routes>
   );
 };
