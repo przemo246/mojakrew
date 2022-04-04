@@ -1,17 +1,25 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Form } from "./Form";
-import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase.config";
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
 
 export const Login: FunctionComponent = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleLogin = (email: string, password: string) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        return;
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
   return (
     <Form
       heading="Zaloguj się"
       type="login"
-      firebaseAction={signInWithEmailAndPassword}
-      errorMessage={error?.message}
+      firebaseAction={handleLogin}
+      errorMessage={errorMessage}
     />
   );
 };

@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { MdLibraryAdd, MdAccountCircle, MdList } from "react-icons/md";
+import { MdLibraryAdd, MdList } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
 export const Navigation: FunctionComponent = () => {

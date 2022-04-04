@@ -2,7 +2,6 @@ import { FunctionComponent } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
-import { MdLogout } from "react-icons/md";
 import { ButtonRed } from "../atoms/ButtonRed";
 
 export const LoggedIn: FunctionComponent = () => {

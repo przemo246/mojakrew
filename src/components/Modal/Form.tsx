@@ -9,7 +9,7 @@ interface FormProps {
   heading: string;
   type: string;
   firebaseAction: (email: string, password: string) => void;
-  errorMessage: string | undefined;
+  errorMessage: string;
 }
 
 export const Form: FunctionComponent<FormProps> = ({
@@ -26,6 +26,9 @@ export const Form: FunctionComponent<FormProps> = ({
     });
   };
   const [signInWithGoogle] = useSignInWithGoogle(auth);
+  const handleOnClick = () => {
+    firebaseAction(data.email, data.password);
+  };
   return (
     <>
       <h1 className="heading-primary">{heading}</h1>
@@ -49,17 +52,17 @@ export const Form: FunctionComponent<FormProps> = ({
             name="password"
             value={data.password}
             onChange={handleOnChange}
+            autoComplete={type === "login" ? "true" : "false"}
             required
           />
         </div>
         <ButtonRed
           type="button"
-          onClick={() => firebaseAction(data.email, data.password)}
+          onClick={handleOnClick}
           disabled={data.email && data.password ? false : true}
         >
           OK
         </ButtonRed>
-        <div className="error-message">{errorMessage ? errorMessage : ""}</div>
         {type === "login" ? (
           <button type="button" onClick={() => signInWithGoogle()}>
             <img
@@ -70,6 +73,7 @@ export const Form: FunctionComponent<FormProps> = ({
           </button>
         ) : null}
       </form>
+      <div className="error-message">{errorMessage ? errorMessage : ""}</div>
     </>
   );
 };

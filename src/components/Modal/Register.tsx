@@ -1,17 +1,26 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useState } from "react";
 import { Form } from "./Form";
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase.config";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 export const Register: FunctionComponent = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useCreateUserWithEmailAndPassword(auth);
+  const [errorMessage, setErrorMessage] = useState("");
+  const handleCreateUser = (email: string, password: string) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        return;
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+      });
+  };
+
   return (
     <Form
       heading="Zarejestruj się"
       type="register"
-      firebaseAction={signInWithEmailAndPassword}
-      errorMessage={error?.message}
+      firebaseAction={handleCreateUser}
+      errorMessage={errorMessage}
     />
   );
 };
