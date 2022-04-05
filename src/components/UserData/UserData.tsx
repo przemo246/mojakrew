@@ -1,14 +1,25 @@
-import React, { FunctionComponent, useEffect, useState } from "react";
+import {
+  FunctionComponent,
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  FormEvent,
+} from "react";
 import { Test } from "../../../types/interfaces";
 import { useNotification } from "../../hooks/useNotification";
 import { Notification } from "../atoms/Notification";
 import { Label } from "../atoms/Label";
 import { ButtonRed } from "../atoms/ButtonRed";
 import { AlertColor } from "@mui/material/Alert";
+import { db } from "../../firebase.config";
+import { addDoc, collection } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase.config";
 
 interface UserDataProps {
-  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
-  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  setTests: Dispatch<SetStateAction<Test[]>>;
+  setCurrentTest: Dispatch<SetStateAction<Test | null>>;
   currentTest: Test | null;
 }
 
@@ -24,6 +35,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
     message: string;
   }>({ type: "info", message: "" });
   const [isNotificationOpen, toggleIsNotificationOpen] = useNotification();
+  const [user] = useAuthState(auth);
   useEffect(() => {
     if (currentTest) {
       setLocation(currentTest.location);
@@ -33,19 +45,27 @@ export const UserData: FunctionComponent<UserDataProps> = ({
       setDate("");
     }
   }, [currentTest]);
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const addTestToDatabase = async (test: Test) => {
+    if (user) {
+      await addDoc(collection(db, "users", user.uid, "tests"), {
+        ...test,
+      });
+    }
+  };
+  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (date && location) {
       const id = Number(Date.now().toString().slice(-5));
       const currentTestObj = { id, date, location, elements: [] };
       setCurrentTest(currentTestObj);
+      addTestToDatabase(currentTestObj);
       setTests((prevState) => [...prevState, currentTestObj]);
       setNotification({ type: "success", message: "Dodano nowe badanie" });
       toggleIsNotificationOpen();
     }
   };
 
-  const handleAddNewTest = () => {
+  const handleResetTestData = () => {
     setLocation("");
     setDate("");
     setCurrentTest(null);
@@ -80,7 +100,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <ButtonRed type="submit" disabled={location && date ? false : true}>
           OK
         </ButtonRed>
-        <ButtonRed type="button" onClick={handleAddNewTest} disabled={false}>
+        <ButtonRed type="button" onClick={handleResetTestData} disabled={false}>
           RESETUJ
         </ButtonRed>
       </form>

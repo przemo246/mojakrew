@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FormEvent, ChangeEvent, FunctionComponent, useState } from "react";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import googleSigninButton from "../../assets/img/btn_google_signin_light_pressed_web@2x.png";
 import { auth } from "../../firebase.config";
@@ -19,20 +19,21 @@ export const Form: FunctionComponent<FormProps> = ({
   errorMessage,
 }) => {
   const [data, setData] = useState({ email: "", password: "" });
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
   };
   const [signInWithGoogle] = useSignInWithGoogle(auth);
-  const handleOnClick = () => {
+  const handleOnSubmit = (e: FormEvent) => {
+    e.preventDefault();
     firebaseAction(data.email, data.password);
   };
   return (
     <>
       <h1 className="heading-primary">{heading}</h1>
-      <form className="modal__form">
+      <form className="modal__form" onSubmit={handleOnSubmit}>
         <div className="modal__inputs">
           <Label htmlFor="email">E-mail</Label>
           <input
@@ -57,8 +58,7 @@ export const Form: FunctionComponent<FormProps> = ({
           />
         </div>
         <ButtonRed
-          type="button"
-          onClick={handleOnClick}
+          type="submit"
           disabled={data.email && data.password ? false : true}
         >
           OK
