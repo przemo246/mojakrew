@@ -1,45 +1,75 @@
 .main {
-  min-width: 70vw;
   background-color: $color-gray-light-2;
   box-shadow: $shadow-dark;
   min-height: 90vh;
-  border-radius: 1.5rem;
-  padding: 2rem 0;
   text-align: center;
   position: relative;
+  display: flex;
 }
 
 .logo {
-  width: 23rem;
+  width: 5rem;
+  margin-bottom: 3rem;
 }
 
 .navigation {
   display: flex;
-  justify-content: space-evenly;
+  background-color: $color-gray-light-1;
+  flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+  padding: 5rem 2rem;
   &__list {
     list-style: none;
-    display: flex;
   }
   &__item:not(:last-child) {
-    margin-right: 1.5rem;
+    margin-bottom: 1.5rem;
   }
-  &__item,
-  &__link {
-    color: $color-gray-dark-1;
-    font-size: 1.8rem;
-    transition: all 0.2s;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  &__item:hover,
-  &__link:hover {
-    color: $color-secondary-dark;
+  &__item {
+    & a {
+      color: $color-gray-dark-1;
+      font-size: 2.3rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+      &:hover {
+        color: $color-secondary-dark;
+      }
+    }
+    & a.active {
+      color: $color-secondary-dark;
+    }
   }
 }
 
 section {
-  padding: 1.5rem 0;
+  padding: 1rem 0;
+  width: 940px;
+}
+
+.tests__item::marker {
+  content: "";
+}
+
+.user-profile {
+  display: flex;
+  justify-content: flex-end;
+  &__buttons button,
+  &__email,
+  &__logout-btn {
+    margin-right: 1rem;
+  }
+  &__logout-btn {
+    @include flex-center;
+    font-size: 2rem;
+    transition: all 0.2s;
+    &:hover {
+      color: $color-secondary-dark;
+    }
+  }
+  &__credentials {
+    @include flex-center;
+  }
 }
 
 .user-results__form,
@@ -97,7 +127,7 @@ section {
 
 .react-date-picker {
   border: 1px solid $color-gray-light-1;
-  background-color: #fff;
+  background-color: $color-white;
   color: inherit;
   font-family: inherit;
   font-weight: inherit;
@@ -121,7 +151,7 @@ section {
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
   background: $color-gray-dark-4 !important;
-  color: #fff;
+  color: $color-white;
 }
 
 .react-date-picker__button:enabled:hover .react-date-picker__button__icon,
@@ -146,7 +176,7 @@ select:focus {
 input,
 select {
   border: 1px solid $color-gray-light-1;
-  background-color: #fff;
+  background-color: $color-white;
   color: inherit;
   font-family: inherit;
   font-weight: inherit;
@@ -170,8 +200,8 @@ select {
   grid-template-rows: auto 1fr;
   position: fixed;
   display: grid;
-  border-radius: 10px;
-  background-color: #fff;
+  border-radius: 5px;
+  background-color: $color-white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -195,6 +225,19 @@ select {
     justify-content: flex-start;
     align-items: center;
     position: relative;
+  }
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 100%;
+    justify-content: center;
+    & button {
+      align-self: center;
+    }
+  }
+  &__inputs {
+    margin-bottom: 2rem;
   }
 }
 
@@ -274,4 +317,9 @@ select {
       background-color: $color-gray-light-1;
     }
   }
+}
+
+.vendor-img {
+  width: 18rem;
+  margin-top: 1rem;
 }

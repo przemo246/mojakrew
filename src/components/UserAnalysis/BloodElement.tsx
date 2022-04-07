@@ -1,13 +1,21 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent, Dispatch, SetStateAction, MouseEvent } from "react";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from "firebase/firestore";
 import { bloodElements } from "../../ts/bloodElements";
 import { Test, Element } from "../../../types/interfaces";
 import { FaCheck, FaTrash, FaTimes, FaQuestionCircle } from "react-icons/fa";
+import { auth, db } from "../../firebase.config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface BloodElementProps {
   element: Element;
-  currentTestID: number;
-  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
-  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  currentTest: Test | null;
+  setCurrentTest: Dispatch<SetStateAction<Test | null>>;
 }
 
 const filterElements = (obj: Test, id: string) => {
@@ -17,23 +25,29 @@ const filterElements = (obj: Test, id: string) => {
 
 export const BloodElement: FunctionComponent<BloodElementProps> = ({
   element,
-  currentTestID,
-  setTests,
+  currentTest,
   setCurrentTest,
 }) => {
-  const handleRemoveBloodElement = (
-    e: React.MouseEvent<SVGElement, globalThis.MouseEvent>
+  const [user] = useAuthState(auth);
+  const handleRemoveBloodElement = async (
+    e: MouseEvent<SVGElement, globalThis.MouseEvent>
   ) => {
     const removedElementID = e.currentTarget.id;
-    setTests((prev) => {
-      return prev.map((el) => {
-        if (el.id === currentTestID) {
-          return filterElements(el, removedElementID);
-        } else {
-          return el;
-        }
+    if (user && currentTest) {
+      const q = query(
+        collection(db, "users", user.uid, "tests"),
+        where("id", "==", currentTest.id)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (doc) => {
+        const docRef = doc.ref;
+        const { elements } = filterElements(currentTest, removedElementID);
+        await updateDoc(docRef, {
+          elements,
+        });
       });
-    });
+    }
+
     setCurrentTest((prev) => {
       if (prev) {
         return filterElements(prev, removedElementID);

@@ -1,16 +1,33 @@
-import React, { FunctionComponent, useState } from "react";
+import {
+  FunctionComponent,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  FormEvent,
+} from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Test, Element } from "../../../types/interfaces";
+import { auth, db } from "../../firebase.config";
 import { bloodElements } from "../../ts/bloodElements";
+import { ButtonRed } from "../atoms/ButtonRed";
+import { Label } from "../atoms/Label";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 
 interface UserResultProps {
   currentTest: Test | null;
-  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
-  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  setCurrentTest: Dispatch<SetStateAction<Test | null>>;
 }
 
 export const UserResults: FunctionComponent<UserResultProps> = ({
   currentTest,
-  setTests,
   setCurrentTest,
 }) => {
   const [results, setResults] = useState<Element>({
@@ -20,8 +37,9 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     referenceTo: "",
     result: "",
   });
+  const [user] = useAuthState(auth);
 
-  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
     if (id) {
       setResults((prev) => ({ ...prev, id, name: bloodElements[id].name }));
@@ -30,11 +48,11 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setResults((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { id, name } = results;
     const referenceFrom = Number(results.referenceFrom);
@@ -61,14 +79,21 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
         ...prev,
         elements: [...prev.elements, bloodElementObj],
       }));
-      setTests((prev: Test[]): Test[] => {
-        return prev.map((obj: Test) => {
-          if (obj.id === currentTest?.id) {
-            return { ...obj, elements: [...obj.elements, bloodElementObj] };
-          }
-          return obj;
+
+      if (user) {
+        const q = query(
+          collection(db, "users", user.uid, "tests"),
+          where("id", "==", currentTest.id)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(async (doc) => {
+          const docRef = doc.ref;
+          await updateDoc(docRef, {
+            elements: arrayUnion(bloodElementObj),
+          });
         });
-      });
+      }
+
       setResults({
         id: "",
         name: "",
@@ -84,9 +109,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
       <span className="order-number">2</span>
       <h1 className="heading-primary">Wprowadź wyniki morfologii krwi</h1>
       <form className="user-results__form">
-        <label htmlFor="test" className="red-label">
-          badanie
-        </label>
+        <Label htmlFor="test">badanie</Label>
         <select
           name="test"
           id="test"
@@ -111,9 +134,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           <option value="bazocyty">Bazocyty</option>
           <option value="ig">IG</option>
         </select>
-        <label htmlFor="result" className="red-label">
-          wynik
-        </label>
+        <Label htmlFor="result">wynik</Label>
         <input
           type="number"
           name="result"
@@ -125,9 +146,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
         />
       </form>
       <form className="user-results__form" onSubmit={handleSubmitForm}>
-        <label htmlFor="referenceFrom" className="red-label">
-          wart. referencyjna od
-        </label>
+        <Label htmlFor="referenceFrom">wart. referencyjna od</Label>
         <input
           type="number"
           name="referenceFrom"
@@ -137,9 +156,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           value={results.referenceFrom}
           onChange={handleInputChange}
         />
-        <label htmlFor="referenceTo" className="red-label">
-          do
-        </label>
+        <Label htmlFor="referenceTo">do</Label>
         <input
           type="number"
           name="referenceTo"
@@ -149,9 +166,9 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           value={results.referenceTo}
           onChange={handleInputChange}
         />
-        <button className="btn btn-red" disabled={!currentTest ? true : false}>
+        <ButtonRed type="submit" disabled={!currentTest ? true : false}>
           Dodaj
-        </button>
+        </ButtonRed>
       </form>
     </section>
   );

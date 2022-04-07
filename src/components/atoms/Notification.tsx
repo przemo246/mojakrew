@@ -25,7 +25,7 @@ export const Notification: FunctionComponent<NotificationProps> = ({
   toggleIsNotificationOpen,
 }) => {
   if (!isNotificationOpen) return null;
-  const handleClose = (event?: SyntheticEvent, reason?: string) => {
+  const handleClose = (event: SyntheticEvent | Event, reason?: string) => {
     if (reason === "clickaway") {
       return;
     }

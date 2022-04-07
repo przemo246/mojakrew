@@ -1,87 +1,54 @@
 import "./scss/main.scss";
-import logo from "./assets/img/logo1x.png";
-import { FunctionComponent, useState, useEffect, Fragment } from "react";
-import { UserData } from "./components/UserData/UserData";
-import { UserResults } from "./components/UserResults/UserResults";
-import { UserAnalysis } from "./components/UserAnalysis/UserAnalysis";
+import { FunctionComponent, useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { Layout } from "./components/Layout/Layout";
 import { Test } from "../types/interfaces";
-import { useModal } from "./hooks/useModal";
-import { Modal } from "./components/Modal/Modal";
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { TestsList } from "./components/TestsList/TestsList";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { auth, db } from "./firebase.config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const App: FunctionComponent = () => {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [tests, setTests] = useState<Test[]>([]);
-  const [isOpen, toggleIsOpen] = useModal();
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    const storedTests = localStorage.getItem("tests");
-    if (storedTests) {
-      setTests(JSON.parse(storedTests));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (tests.length > 0) {
-      localStorage.setItem("tests", JSON.stringify(tests));
+    if (user) {
+      const q = query(collection(db, "users", user.uid, "tests"));
+      return onSnapshot(q, (querySnapshot) => {
+        const testsFromDB: any = [];
+        querySnapshot.forEach((doc) => {
+          if (doc.data().hasOwnProperty("id")) {
+            testsFromDB.push(doc.data());
+          }
+        });
+        setTests(testsFromDB);
+      });
     } else {
-      localStorage.clear();
+      setTests([]);
+      setCurrentTest(null);
     }
-  }, [tests]);
+  }, [user]);
 
   return (
-    <>
-      <main className="main">
-        <nav className="navigation">
-          <div className="logo-container">
-            <img src={logo} className="logo" alt="" />
-          </div>
-          <ul className="navigation__list">
-            <li className="navigation__item" onClick={toggleIsOpen}>
-              BADANIA
-            </li>
-            <li className="navigation__item">
-              <a
-                href="https://github.com/Przemo246/mojakrew"
-                rel="noreferrer"
-                target="_blank"
-                className="navigation__link"
-              >
-                GITHUB
-              </a>
-            </li>
-            <li className="navigation__item">
-              <a
-                className="navigation__link"
-                href="mailto:przemo247@outlook.com"
-              >
-                EMAIL
-              </a>
-            </li>
-          </ul>
-        </nav>
-        <UserData
-          setTests={setTests}
-          setCurrentTest={setCurrentTest}
-          currentTest={currentTest}
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route
+          index
+          element={
+            <Dashboard
+              setCurrentTest={setCurrentTest}
+              currentTest={currentTest}
+            />
+          }
         />
-        <UserResults
-          setTests={setTests}
-          currentTest={currentTest}
-          setCurrentTest={setCurrentTest}
+        <Route
+          path="/tests-list"
+          element={<TestsList tests={tests} setCurrentTest={setCurrentTest} />}
         />
-        <UserAnalysis
-          currentTest={currentTest}
-          setTests={setTests}
-          setCurrentTest={setCurrentTest}
-        />
-      </main>
-      <Modal
-        open={isOpen}
-        onClose={toggleIsOpen}
-        tests={tests}
-        setCurrentTest={setCurrentTest}
-        setTests={setTests}
-      />
-    </>
+      </Route>
+    </Routes>
   );
 };

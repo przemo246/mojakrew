@@ -1,16 +1,14 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, Dispatch, SetStateAction } from "react";
 import { Test } from "../../../types/interfaces";
 import { BloodElement } from "./BloodElement";
 
 interface UserAnalysisProps {
   currentTest: Test | null;
-  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
-  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
+  setCurrentTest: Dispatch<SetStateAction<Test | null>>;
 }
 
 export const UserAnalysis: FunctionComponent<UserAnalysisProps> = ({
   currentTest,
-  setTests,
   setCurrentTest,
 }) => {
   return (
@@ -26,9 +24,8 @@ export const UserAnalysis: FunctionComponent<UserAnalysisProps> = ({
           ? currentTest.elements.map((element) => (
               <BloodElement
                 key={element.id}
-                currentTestID={currentTest.id}
+                currentTest={currentTest}
                 element={element}
-                setTests={setTests}
                 setCurrentTest={setCurrentTest}
               />
             ))
