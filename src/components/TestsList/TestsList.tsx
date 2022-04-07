@@ -20,6 +20,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "../../firebase.config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
 
 interface TestsListProps {
   tests: Test[];
@@ -32,6 +33,7 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
 }) => {
   const [testOptionsWindow, setTestOptionsWindow] = useState<TestOptions[]>([]);
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
   useEffect(() => {
     const testOptions = tests.map((test) => ({
       id: test.id,
@@ -47,6 +49,15 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
     const result = tests.find((test) => test.id === id);
     if (result) {
       setCurrentTest(result);
+      setTestOptionsWindow((prev) => {
+        return prev.map((el) => {
+          if (el.id === result.id) {
+            return { ...el, isOptionsOpen: false };
+          }
+          return el;
+        });
+      });
+      navigate("/");
     }
   };
 
