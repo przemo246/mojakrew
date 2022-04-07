@@ -28,6 +28,7 @@ export const App: FunctionComponent = () => {
       });
     } else {
       setTests([]);
+      setCurrentTest(null);
     }
   }, [user]);
 
