@@ -10,6 +10,6 @@ To run the app clone the repository, install dependencies and run the app locall
 
 ## Features to add in the future
 
-- Improve UI
-- Authentication
-- Storing tests in a database, possibliy Firebase Firestore (tests are currently stored in the local storage)
+- Improve UI ✅
+- Authentication ✅
+- Storing tests in a database, possibliy Firebase Firestore (tests are currently stored in the local storage) ✅
