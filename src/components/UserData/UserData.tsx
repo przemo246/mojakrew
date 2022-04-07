@@ -58,6 +58,12 @@ export const UserData: FunctionComponent<UserDataProps> = ({
       setCurrentTest(currentTestObj);
       addTestToDatabase(currentTestObj);
       setNotification({ type: "success", message: "Dodano nowe badanie" });
+      if (!user) {
+        setNotification({
+          type: "info",
+          message: "Utwórz konto, aby zapisać badanie",
+        });
+      }
       toggleIsNotificationOpen();
     }
   };

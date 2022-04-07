@@ -8,13 +8,7 @@ import {
 import { Test, TestOptions } from "../../../types/interfaces";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { TestPDF } from "./TestPDF";
-import {
-  MdMenu,
-  MdDelete,
-  MdOpenInNew,
-  MdFileDownload,
-  MdOutlineOpenInNew,
-} from "react-icons/md";
+import { MdMenu, MdDelete, MdOpenInNew, MdFileDownload } from "react-icons/md";
 import { AiOutlineLoading } from "react-icons/ai";
 import {
   collection,
@@ -162,7 +156,7 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
                       onClick={() => removeTestFromDB(test.id)}
                     />
                   </div>
-                  <MdOutlineOpenInNew
+                  <MdMenu
                     className="options-icon"
                     onClick={() => toggleIsOptionsOpen(test.id)}
                     title="Pokaż badanie"
