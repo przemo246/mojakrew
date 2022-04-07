@@ -26,6 +26,8 @@ export const App: FunctionComponent = () => {
         });
         setTests(testsFromDB);
       });
+    } else {
+      setTests([]);
     }
   }, [user]);
 
