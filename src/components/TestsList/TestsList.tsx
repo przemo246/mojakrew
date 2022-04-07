@@ -1,4 +1,10 @@
-import { FunctionComponent, useState, useEffect } from "react";
+import {
+  FunctionComponent,
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { Test, TestOptions } from "../../../types/interfaces";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { TestPDF } from "./TestPDF";
@@ -10,19 +16,28 @@ import {
   MdOutlineOpenInNew,
 } from "react-icons/md";
 import { AiOutlineLoading } from "react-icons/ai";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+import { auth, db } from "../../firebase.config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 interface TestsListProps {
   tests: Test[];
-  setCurrentTest: React.Dispatch<React.SetStateAction<Test | null>>;
-  setTests: React.Dispatch<React.SetStateAction<Test[]>>;
+  setCurrentTest: Dispatch<SetStateAction<Test | null>>;
 }
 
 export const TestsList: FunctionComponent<TestsListProps> = ({
   tests,
   setCurrentTest,
-  setTests,
 }) => {
   const [testOptionsWindow, setTestOptionsWindow] = useState<TestOptions[]>([]);
+  const [user] = useAuthState(auth);
   useEffect(() => {
     const testOptions = tests.map((test) => ({
       id: test.id,
@@ -41,9 +56,18 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
     }
   };
 
-  const handleRemoveTest = (id: number) => {
-    setTests((prev) => prev.filter((test) => test.id !== id));
-    setCurrentTest((prev) => (prev?.id === id ? null : prev));
+  const removeTestFromDB = async (id: number) => {
+    if (user) {
+      const q = query(
+        collection(db, "users", user.uid, "tests"),
+        where("id", "==", id)
+      );
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach(async (document) => {
+        await deleteDoc(doc(db, "users", user.uid, "tests", document.id));
+      });
+      setCurrentTest((prev) => (prev?.id === id ? null : prev));
+    }
   };
 
   const findIsOptionsOpen = (id: number) => {
@@ -135,7 +159,7 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
                     <MdDelete
                       className="options-icon"
                       title="Usuń badanie"
-                      onClick={() => handleRemoveTest(test.id)}
+                      onClick={() => removeTestFromDB(test.id)}
                     />
                   </div>
                   <MdOutlineOpenInNew

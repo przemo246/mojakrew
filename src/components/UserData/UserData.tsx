@@ -18,13 +18,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase.config";
 
 interface UserDataProps {
-  setTests: Dispatch<SetStateAction<Test[]>>;
   setCurrentTest: Dispatch<SetStateAction<Test | null>>;
   currentTest: Test | null;
 }
 
 export const UserData: FunctionComponent<UserDataProps> = ({
-  setTests,
   setCurrentTest,
   currentTest,
 }) => {
@@ -59,7 +57,6 @@ export const UserData: FunctionComponent<UserDataProps> = ({
       const currentTestObj = { id, date, location, elements: [] };
       setCurrentTest(currentTestObj);
       addTestToDatabase(currentTestObj);
-      setTests((prevState) => [...prevState, currentTestObj]);
       setNotification({ type: "success", message: "Dodano nowe badanie" });
       toggleIsNotificationOpen();
     }

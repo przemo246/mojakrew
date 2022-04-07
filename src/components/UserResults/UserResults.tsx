@@ -6,20 +6,28 @@ import {
   ChangeEvent,
   FormEvent,
 } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Test, Element } from "../../../types/interfaces";
+import { auth, db } from "../../firebase.config";
 import { bloodElements } from "../../ts/bloodElements";
 import { ButtonRed } from "../atoms/ButtonRed";
 import { Label } from "../atoms/Label";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 
 interface UserResultProps {
   currentTest: Test | null;
-  setTests: Dispatch<SetStateAction<Test[]>>;
   setCurrentTest: Dispatch<SetStateAction<Test | null>>;
 }
 
 export const UserResults: FunctionComponent<UserResultProps> = ({
   currentTest,
-  setTests,
   setCurrentTest,
 }) => {
   const [results, setResults] = useState<Element>({
@@ -29,6 +37,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     referenceTo: "",
     result: "",
   });
+  const [user] = useAuthState(auth);
 
   const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -43,7 +52,7 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     setResults((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const handleSubmitForm = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const { id, name } = results;
     const referenceFrom = Number(results.referenceFrom);
@@ -70,14 +79,21 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
         ...prev,
         elements: [...prev.elements, bloodElementObj],
       }));
-      setTests((prev: Test[]): Test[] => {
-        return prev.map((obj: Test) => {
-          if (obj.id === currentTest?.id) {
-            return { ...obj, elements: [...obj.elements, bloodElementObj] };
-          }
-          return obj;
+
+      if (user) {
+        const q = query(
+          collection(db, "users", user.uid, "tests"),
+          where("id", "==", currentTest.id)
+        );
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(async (doc) => {
+          const docRef = doc.ref;
+          await updateDoc(docRef, {
+            elements: arrayUnion(bloodElementObj),
+          });
         });
-      });
+      }
+
       setResults({
         id: "",
         name: "",

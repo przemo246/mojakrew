@@ -5,25 +5,28 @@ import { Layout } from "./components/Layout/Layout";
 import { Test } from "../types/interfaces";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { TestsList } from "./components/TestsList/TestsList";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import { auth, db } from "./firebase.config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const App: FunctionComponent = () => {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
   const [tests, setTests] = useState<Test[]>([]);
+  const [user] = useAuthState(auth);
 
   useEffect(() => {
-    const storedTests = localStorage.getItem("tests");
-    if (storedTests) {
-      setTests(JSON.parse(storedTests));
+    if (user) {
+      const testsFromDB: any = [];
+      const q = query(collection(db, "users", user.uid, "tests"));
+      return onSnapshot(q, (querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          testsFromDB.push(doc.data());
+        });
+        setTests([...testsFromDB]);
+      });
     }
-  }, []);
+  }, [user]);
 
-  useEffect(() => {
-    if (tests.length > 0) {
-      localStorage.setItem("tests", JSON.stringify(tests));
-    } else {
-      localStorage.clear();
-    }
-  }, [tests]);
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
@@ -31,7 +34,6 @@ export const App: FunctionComponent = () => {
           index
           element={
             <Dashboard
-              setTests={setTests}
               setCurrentTest={setCurrentTest}
               currentTest={currentTest}
             />
@@ -39,13 +41,7 @@ export const App: FunctionComponent = () => {
         />
         <Route
           path="/tests-list"
-          element={
-            <TestsList
-              tests={tests}
-              setCurrentTest={setCurrentTest}
-              setTests={setTests}
-            />
-          }
+          element={<TestsList tests={tests} setCurrentTest={setCurrentTest} />}
         />
       </Route>
     </Routes>
