@@ -16,13 +16,16 @@ export const App: FunctionComponent = () => {
 
   useEffect(() => {
     if (user) {
-      const testsFromDB: any = [];
       const q = query(collection(db, "users", user.uid, "tests"));
       return onSnapshot(q, (querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          testsFromDB.push(doc.data());
+          const testsFromDB: any = [];
+          if (doc.data().hasOwnProperty("id")) {
+            testsFromDB.push(doc.data());
+            console.log("Działa");
+          }
+          setTests(testsFromDB);
         });
-        setTests([...testsFromDB]);
       });
     }
   }, [user]);
