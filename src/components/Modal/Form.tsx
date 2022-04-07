@@ -46,7 +46,7 @@ export const Form: FunctionComponent<FormProps> = ({
           />
         </div>
         <div className="modal__inputs">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password">Hasło</Label>
           <input
             type="password"
             id="password"
