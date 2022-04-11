@@ -22,25 +22,33 @@ interface UserDataProps {
   currentTest: Test | null;
 }
 
+interface UserDataForm {
+  location: string;
+  date: string | number;
+}
+
+const emptyForm = {
+  location: "",
+  date: "",
+};
+
 export const UserData: FunctionComponent<UserDataProps> = ({
   setCurrentTest,
   currentTest,
 }) => {
-  const [location, setLocation] = useState<string>("");
-  const [date, setDate] = useState<string | number>("");
+  const [data, setData] = useState<UserDataForm>({ location: "", date: "" });
   const [notification, setNotification] = useState<{
     type: AlertColor;
     message: string;
   }>({ type: "info", message: "" });
   const [isNotificationOpen, toggleIsNotificationOpen] = useNotification();
   const [user] = useAuthState(auth);
+  const { location, date } = data;
   useEffect(() => {
     if (currentTest) {
-      setLocation(currentTest.location);
-      setDate(currentTest.date);
+      setData({ location: currentTest.location, date: currentTest.date });
     } else {
-      setLocation("");
-      setDate("");
+      setData(emptyForm);
     }
   }, [currentTest]);
   const addTestToDatabase = async (test: Test) => {
@@ -69,8 +77,7 @@ export const UserData: FunctionComponent<UserDataProps> = ({
   };
 
   const handleResetTestData = () => {
-    setLocation("");
-    setDate("");
+    setData(emptyForm);
     setCurrentTest(null);
   };
 
@@ -83,7 +90,9 @@ export const UserData: FunctionComponent<UserDataProps> = ({
         <input
           type="date"
           value={date}
-          onChange={(e) => setDate(e.target.value)}
+          onChange={(e) =>
+            setData((prev) => ({ ...prev, date: e.target.value }))
+          }
           name="date"
           id="date"
           required
@@ -95,7 +104,9 @@ export const UserData: FunctionComponent<UserDataProps> = ({
             name="location"
             id="location"
             placeholder="np. Bruss, Aleja Grunwaldzka 60, Gdańsk"
-            onChange={(e) => setLocation(e.target.value)}
+            onChange={(e) =>
+              setData((prev) => ({ ...prev, location: e.target.value }))
+            }
             value={location}
             required
           />
