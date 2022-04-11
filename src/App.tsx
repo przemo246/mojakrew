@@ -8,6 +8,7 @@ import { TestsList } from "./components/TestsList/TestsList";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { auth, db } from "./firebase.config";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { NotFound } from "./NotFound";
 
 export const App: FunctionComponent = () => {
   const [currentTest, setCurrentTest] = useState<Test | null>(null);
@@ -48,6 +49,7 @@ export const App: FunctionComponent = () => {
           path="/tests-list"
           element={<TestsList tests={tests} setCurrentTest={setCurrentTest} />}
         />
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
