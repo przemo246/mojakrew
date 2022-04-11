@@ -176,7 +176,7 @@ export const TestsList: FunctionComponent<TestsListProps> = ({
               </div>
             ))
           ) : (
-            <div className="notests-box">
+            <div className="center-box">
               <span className="red-label">Brak dodanych badań</span>
             </div>
           )}
