@@ -20,6 +20,9 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
+import { useNotification } from "../../hooks/useNotification";
+import { Notification } from "../atoms/Notification";
+import { AlertColor } from "@mui/material";
 
 interface UserResultProps {
   currentTest: Test | null;
@@ -38,6 +41,11 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     result: "",
   });
   const [user] = useAuthState(auth);
+  const [notification, setNotification] = useState<{
+    type: AlertColor;
+    message: string;
+  }>({ type: "info", message: "" });
+  const [isNotificationOpen, toggleIsNotificationOpen] = useNotification();
 
   const handleOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const id = e.target.value;
@@ -59,6 +67,23 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
     const referenceTo = Number(results.referenceTo);
     const result = Number(results.result);
     const index = currentTest?.elements.findIndex((el) => el.id === id);
+
+    if (index !== -1) {
+      setNotification({
+        type: "error",
+        message: "Wybrany składnik krwi został już dodany!",
+      });
+      toggleIsNotificationOpen();
+    }
+
+    if (referenceFrom > referenceTo) {
+      setNotification({
+        type: "error",
+        message: 'Referencja "od" musi być mniejsza od referencji "do"',
+      });
+      toggleIsNotificationOpen();
+    }
+
     if (
       index === -1 &&
       name &&
@@ -170,6 +195,12 @@ export const UserResults: FunctionComponent<UserResultProps> = ({
           Dodaj
         </ButtonRed>
       </form>
+      <Notification
+        type={notification.type}
+        message={notification.message}
+        isNotificationOpen={isNotificationOpen}
+        toggleIsNotificationOpen={toggleIsNotificationOpen}
+      />
     </section>
   );
 };
